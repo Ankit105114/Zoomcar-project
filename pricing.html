@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Offers - Zoomcar Self-Drive Car Rental</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        :root {
+            --primary: #3563e9;
+            --secondary: #1a202c;
+            --accent: #ff7e5f;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info span {
+            margin-right: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 0 15px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .page-hero {
+            background: linear-gradient(rgba(53, 99, 233, 0.9), rgba(53, 99, 233, 0.9));
+            padding: 100px 0 60px;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .page-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Pricing Content */
+        .pricing-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Pricing Tabs */
+        .pricing-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            color: var(--gray);
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        /* Pricing Plans */
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s;
+            position: relative;
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            transform: scale(1.02);
+        }
+
+        .pricing-card.popular .pricing-header {
+            background: var(--primary);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .pricing-header {
+            background: var(--light);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .pricing-header h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .price-amount {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .price-amount span {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .price-duration {
+            color: var(--gray);
+            font-size: 16px;
+        }
+
+        .pricing-features {
+            padding: 30px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .features-list li i {
+            color: var(--primary);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .btn-pricing {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-pricing:hover {
+            background: #2a52c7;
+            transform: translateY(-3px);
+        }
+
+        /* Offers Section */
+        .offers-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            display: flex;
+            transition: transform 0.3s;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .offer-badge {
+            width: 80px;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        .offer-content {
+            padding: 25px;
+            flex: 1;
+        }
+
+        .offer-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .offer-details {
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .offer-code {
+            background: rgba(53, 99, 233, 0.1);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .btn-offer {
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .btn-offer:hover {
+            background: #2a52c7;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .faq-question {
+            background: var(--light);
+            padding: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--secondary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            background: white;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #a0aec0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-hero h1 {
+                font-size: 36px;
+            }
+            
+            .pricing-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container top-bar-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 1234567890</span>
+                    <span><i class="fas fa-envelope"></i> support@zoomcar.com</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <h1><a href="index.html">ZOOMCAR</a></h1>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="howitworks.html">How it Works</a></li>
+                    <li><a href="fleet.html">Fleet</a></li>
+                    <li><a href="pricing.html" class="active">Pricing</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="starrewards.html">Loyalty</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-login"><a href="log-in.html">Login</a></button>
+                    <button class="btn btn-signup"><a href="signup.html">Sign Up</a></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Pricing & Offers</h1>
+            <p>Flexible pricing plans and exclusive offers to make your journey more affordable</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Choose Your Plan</h2>
+                <p>Select from our flexible pricing options that suit your travel needs</p>
+            </div>
+            
+            <!-- Pricing Tabs -->
+            <div class="pricing-tabs">
+                <button class="tab-btn active">Hourly Rentals</button>
+                <button class="tab-btn">Daily Rentals</button>
+                <button class="tab-btn">Weekly Rentals</button>
+                <button class="tab-btn">Monthly Rentals</button>
+            </div>
+            
+            <!-- Subscription Plans -->
+            <div class="section-title">
+                <h2>Subscription Plans</h2>
+                <p>Save more with our subscription packages designed for frequent travelers</p>
+            </div>
+            
+            <div class="pricing-plans">
+                <!-- Basic Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Basic</h3>
+                        <div class="price-amount">₹2,999<span>/mo</span></div>
+                        <div class="price-duration">Perfect for occasional travelers</div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul class="features-list">
+                            <li><i class="fas fa-check-circle"></i> 40 hours of driving</li>
+                            <li><i class="fas fa-check-circle"></i> Economy & Compact cars</li>
+                            <li><i class="fas fa-check-circle"></i> 200 kms free per month</li>
+                            <li><i class="fas fa-times-circle" style="color: #dc3545;"></i> Premium cars access</li>
+                            <li><i class="fas fa-times-circle" style="color: #dc3545;"></i> Free delivery</li>
+                        </ul>
+                        <button class="btn-pricing">Choose Plan</button>
+                    </div>
+                </div>
+                
+                <!-- Popular Plan -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge">POPULAR</div>
+                    <div class="pricing-header">
+                        <h3>Premium</h3>
+                        <div class="price-amount">₹4,999<span>/mo</span></div>
+                        <div class="price-duration">Best value for frequent travelers</div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul class="features-list">
+                            <li><i class="fas fa-check-circle"></i> 80 hours of driving</li>
+                            <li><i class="fas fa-check-circle"></i> All car categories</li>
+                            <li><i class="fas fa-check-circle"></i> 500 kms free per month</li>
+                            <li><i class="fas fa-check-circle"></i> 2 free deliveries/month</li>
+                            <li><i class="fas fa-check-circle"></i> Priority support</li>
+                        </ul>
+                        <button class="btn-pricing">Choose Plan</button>
+                    </div>
+                </div>
+                
+                <!-- Business Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Business</h3>
+                        <div class="price-amount">₹8,999<span>/mo</span></div>
+                        <div class="price-duration">For corporate and business needs</div>
+                    </div>
+                    <div class="pricing-features">
+                        <ul class="features-list">
+                            <li><i class="fas fa-check-circle"></i> Unlimited hours</li>
+                            <li><i class="fas fa-check-circle"></i> All car categories</li>
+                            <li><i class="fas fa-check-circle"></i> 1000 kms free per month</li>
+                            <li><i class="fas fa-check-circle"></i> Free delivery & pickup</li>
+                            <li><i class="fas fa-check-circle"></i> Dedicated account manager</li>
+                        </ul>
+                        <button class="btn-pricing">Choose Plan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Section -->
+    <section class="offers-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Special Offers</h2>
+                <p>Exclusive deals and discounts for our valued customers</p>
+            </div>
+            
+            <div class="offers-grid">
+                <!-- Offer 1 -->
+                <div class="offer-card">
+                    <div class="offer-badge">OFFER</div>
+                    <div class="offer-content">
+                        <h3>Weekend Getaway</h3>
+                        <div class="offer-details">Get 20% off on all weekend bookings. Valid on rentals of 24 hours or more.</div>
+                        <div class="offer-code">WEEKEND20</div>
+                        <a href="#" class="btn-offer">Apply Now</a>
+                    </div>
+                </div>
+                
+                <!-- Offer 2 -->
+                <div class="offer-card">
+                    <div class="offer-badge">DEAL</div>
+                    <div class="offer-content">
+                        <h3>First Ride Discount</h3>
+                        <div class="offer-details">New customers get ₹500 off on their first booking. Minimum booking of 8 hours.</div>
+                        <div class="offer-code">FIRSTRIDE</div>
+                        <a href="#" class="btn-offer">Apply Now</a>
+                    </div>
+                </div>
+                
+                <!-- Offer 3 -->
+                <div class="offer-card">
+                    <div class="offer-badge">SAVE</div>
+                    <div class="offer-content">
+                        <h3>Long Term Special</h3>
+                        <div class="offer-details">Book for 7 days or more and get 15% off on your entire rental period.</div>
+                        <div class="offer-code">LONGTERM15</div>
+                        <a href="#" class="btn-offer">Apply Now</a>
+                    </div>
+                </div>
+                
+                <!-- Offer 4 -->
+                <div class="offer-card">
+                    <div class="offer-badge">HOT</div>
+                    <div class="offer-content">
+                        <h3>Refer & Earn</h3>
+                        <div class="offer-details">Refer a friend and get ₹1000 in your Zoomcar wallet when they complete their first trip.</div>
+                        <div class="offer-code">REFER1000</div>
+                        <a href="#" class="btn-offer">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our pricing and offers</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is included in the rental price?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our rental prices include the vehicle rental, comprehensive insurance, maintenance, and 24/7 roadside assistance. Fuel is not included in the base price - you pay only for the fuel you use.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How does the subscription plan work?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Subscription plans are monthly packages that give you a fixed number of driving hours each month. You can use these hours anytime during the month across multiple bookings. Additional hours beyond your plan are charged at discounted rates.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I cancel or modify my booking?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can modify or cancel your booking up to 6 hours before your scheduled pickup time without any charges. Cancellations within 6 hours of pickup will incur a fee equivalent to 50% of the booking amount.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do I apply promo codes?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can apply promo codes during the booking process on our website or mobile app. Simply enter the promo code in the designated field before making payment. Each promo code has specific terms and validity periods.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Are there any hidden charges?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We believe in transparent pricing. All applicable charges including taxes are clearly displayed during the booking process. The only additional charges would be for fuel (if you use the car), tolls, and any traffic violations during your rental period.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Zoomcar</h3>
+                    <p>India's first self-drive car rental company providing affordable and convenient mobility solutions.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Top Cities</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Bangalore</a></li>
+                        <li><a href="#">Delhi NCR</a></li>
+                        <li><a href="#">Mumbai</a></li>
+                        <li><a href="#">Hyderabad</a></li>
+                        <li><a href="#">Chennai</a></li>
+                        <li><a href="#">Pune</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <ul class="footer-links">
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="howitworks.html">How it Works</a></li>
+                        <li><a href="FAQ's.html">FAQs</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3><a href="contactus.html">Contact Us</a></h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Zoomcar India Pvt. Ltd.<br>Bangalore, Karnataka</li>
+                        <li><i class="fas fa-phone"></i> +91 1234567890</li>
+                        <li><i class="fas fa-envelope"></i> support@zoomcar.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Zoomcar India Pvt. Ltd. All rights reserved. | Privacy Policy | Terms & Conditions</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Pricing Tabs
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                });
+            });
+            
+            // Plan Selection
+            const pricingBtns = document.querySelectorAll('.btn-pricing');
+            pricingBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const planName = btn.closest('.pricing-card').querySelector('h3').textContent;
+                    alert(`You've selected the ${planName} plan!`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

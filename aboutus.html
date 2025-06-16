@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Zoomcar - Self-Drive Car Rental in India</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        :root {
+            --primary: #3563e9;
+            --secondary: #1a202c;
+            --accent: #ff7e5f;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info span {
+            margin-right: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 0 15px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* About Hero Section */
+        .about-hero {
+            background: linear-gradient(rgba(53, 99, 233, 0.85), rgba(53, 99, 233, 0.85)), url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 80px;
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .about-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .about-hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 60px auto;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(53, 99, 233, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: var(--primary);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 18px;
+            color: var(--secondary);
+        }
+        
+        /* About Content Sections */
+        .about-section {
+            margin-bottom: 80px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 36px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .section-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .content-row {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        
+        .content-row.reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .content-text {
+            flex: 1;
+        }
+        
+        .content-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .content-text p {
+            margin-bottom: 20px;
+        }
+        
+        .content-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .content-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+        
+        .timeline-content {
+            position: relative;
+            width: 45%;
+            padding: 20px 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            left: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            left: 0;
+        }
+        
+        .timeline-year {
+            position: absolute;
+            top: -20px;
+            width: 100px;
+            height: 40px;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-year {
+            right: -120px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-year {
+            left: -120px;
+        }
+        
+        .timeline-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-image {
+            height: 280px;
+            background-size: cover;
+            background-position: top;
+        }
+        
+        .member-info {
+            padding: 25px 20px;
+        }
+        
+        .member-info h3 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .member-position {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .member-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f4f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+        
+        .member-social a:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(53, 99, 233, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: var(--primary);
+        }
+        
+        .value-card h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(to right, var(--primary), #4a7bff);
+            border-radius: 20px;
+            padding: 80px 50px;
+            text-align: center;
+            color: white;
+            margin: 80px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 20px;
+        }
+        
+        .btn-cta {
+            background: white;
+            color: var(--primary);
+            padding: 15px 50px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .btn-cta:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #a0aec0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .content-row, .content-row.reverse {
+                flex-direction: column;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: 85%;
+                margin-left: 60px;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-content {
+                left: 0;
+            }
+            
+            .timeline-year {
+                left: 0;
+                right: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .about-hero h1 {
+                font-size: 42px;
+            }
+            
+            .about-hero p {
+                font-size: 18px;
+            }
+            
+            .section-header h2 {
+                font-size: 32px;
+            }
+            
+            .cta-section {
+                padding: 50px 20px;
+            }
+            
+            .cta-section h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container top-bar-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 1234567890</span>
+                    <span><i class="fas fa-envelope"></i> support@zoomcar.com</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <h1><a href="index.html">ZOOMCAR</a></h1>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="howitworks.html">How it Works</a></li>
+                    <li><a href="fleet.html">Fleet</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="starrewards.html">Loyalty</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-login"><a href="log-in.html">Login</a></button>
+                    <button class="btn btn-signup"><a href="signup.html">Sign Up</a></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container about-hero-content">
+            <h1>Driving India Forward</h1>
+            <p>Zoomcar is India's leading self-drive mobility platform with a mission to make urban mobility convenient, affordable, and sustainable.</p>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <div class="container">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="stat-number">10,000+</div>
+                <div class="stat-text">Cars in Fleet</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-city"></i>
+                </div>
+                <div class="stat-number">45+</div>
+                <div class="stat-text">Cities Across India</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">5 Million+</div>
+                <div class="stat-text">Happy Customers</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-road"></i>
+                </div>
+                <div class="stat-number">500 Million+</div>
+                <div class="stat-text">Kilometers Driven</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Our Story Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Story</h2>
+                <p>From a simple idea to India's largest self-drive car rental platform</p>
+            </div>
+            
+            <div class="content-row">
+                <div class="content-text">
+                    <h3>Revolutionizing Urban Mobility</h3>
+                    <p>Founded in 2013 by Greg Moran and David Back, Zoomcar was born out of a vision to transform urban mobility in India. Recognizing the challenges of car ownership in congested cities and the limitations of traditional car rentals, the founders set out to create a flexible, self-drive solution.</p>
+                    <p>Zoomcar pioneered the self-drive car rental model in India, introducing the concept of renting cars by the hour, day, week, or month with complete freedom and flexibility. What started with just 7 cars in Bangalore has now grown to become India's leading self-drive mobility platform.</p>
+                    <p>Today, Zoomcar operates in over 45 cities across India with a fleet of 10,000+ vehicles. Our innovative platform connects car owners with trusted drivers, creating new opportunities for both while reducing congestion and emissions in our cities.</p>
+                </div>
+                <div class="content-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Zoomcar Founders">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Timeline Section -->
+    <section class="about-section" style="background: #f8faff; padding: 80px 0;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Journey</h2>
+                <p>Key milestones in Zoomcar's growth story</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2013</div>
+                    <div class="timeline-content">
+                        <h3>Founded in Bangalore</h3>
+                        <p>Zoomcar launched with just 7 cars in Bangalore, introducing the self-drive car rental concept to India.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2014</div>
+                    <div class="timeline-content">
+                        <h3>Expansion to New Cities</h3>
+                        <p>Expanded operations to Pune and Delhi, establishing a presence in major metropolitan areas.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-content">
+                        <h3>Series A Funding</h3>
+                        <p>Raised $11 million in Series A funding to accelerate growth and expand our fleet.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2017</div>
+                    <div class="timeline-content">
+                        <h3>Zoomcar Associate Program</h3>
+                        <p>Launched the industry-first Zoomcar Associate Program, enabling individuals to host their cars on our platform.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-content">
+                        <h3>Electric Vehicle Initiative</h3>
+                        <p>Introduced electric vehicles to our fleet, promoting sustainable mobility solutions.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-content">
+                        <h3>International Expansion</h3>
+                        <p>Expanded operations to Southeast Asia and the Middle East, taking our unique mobility model global.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Mission Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="content-row reverse">
+                <div class="content-text">
+                    <h3>Our Mission & Vision</h3>
+                    <p>At Zoomcar, our mission is to democratize access to vehicles and transform urban mobility across emerging markets. We envision a future where self-drive mobility solutions reduce congestion, lower emissions, and provide affordable transportation options for everyone.</p>
+                    <p>We're building an ecosystem that empowers both car owners and drivers. Our platform enables individuals to monetize their idle cars while providing flexible, affordable mobility solutions to urban residents.</p>
+                    <p>Through technology innovation and sustainable practices, we're working to create smarter, cleaner cities where transportation is accessible to all without the burdens of ownership.</p>
+                </div>
+                <div class="content-image">
+                    <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Zoomcar Mission">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="about-section" style="background: #f8faff; padding: 80px 0;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Leadership Team</h2>
+                <p>The driving force behind Zoomcar's success</p>
+            </div>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80');"></div>
+                    <div class="member-info">
+                        <h3>Greg Moran</h3>
+                        <div class="member-position">Co-Founder & CEO</div>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="member-info">
+                        <h3>David Back</h3>
+                        <div class="member-position">Co-Founder & CTO</div>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80');"></div>
+                    <div class="member-info">
+                        <h3>Priya Sharma</h3>
+                        <div class="member-position">Chief Operating Officer</div>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80');"></div>
+                    <div class="member-info">
+                        <h3>Rajiv Mehta</h3>
+                        <div class="member-position">Chief Marketing Officer</div>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Values Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Core Values</h2>
+                <p>The principles that guide everything we do</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Customer First</h3>
+                    <p>We prioritize customer experience above all else, constantly innovating to exceed expectations.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We embrace technology and creative thinking to solve complex mobility challenges.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainability</h3>
+                    <p>We're committed to reducing emissions and promoting sustainable urban development.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safety</h3>
+                    <p>We maintain the highest safety standards for our customers, partners, and vehicles.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Integrity</h3>
+                    <p>We conduct business with honesty, transparency, and ethical practices at all times.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Excellence</h3>
+                    <p>We strive for excellence in every aspect of our operations and customer interactions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <div class="container">
+        <div class="cta-section">
+            <h2>Join the Mobility Revolution</h2>
+            <p>Experience the freedom of self-drive with India's most trusted car rental platform</p>
+            <a href="signup.html" class="btn-cta">Get Started</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Zoomcar</h3>
+                    <p>India's first self-drive car rental company providing affordable and convenient mobility solutions.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Top Cities</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Bangalore</a></li>
+                        <li><a href="#">Delhi NCR</a></li>
+                        <li><a href="#">Mumbai</a></li>
+                        <li><a href="#">Hyderabad</a></li>
+                        <li><a href="#">Chennai</a></li>
+                        <li><a href="#">Pune</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="howitworks.html">How it Works</a></li>
+                        <li><a href="FAQ's.html">FAQs</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3><a href="contactus.html">Contact Us</a></h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Zoomcar India Pvt. Ltd.<br>Bangalore, Karnataka</li>
+                        <li><i class="fas fa-phone"></i> +91 1234567890</li>
+                        <li><i class="fas fa-envelope"></i> support@zoomcar.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Zoomcar India Pvt. Ltd. All rights reserved. | Privacy Policy | Terms & Conditions</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for stats counter
+        document.addEventListener('DOMContentLoaded', function() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const target = +counter.innerText.replace('+', '');
+                counter.innerText = '0';
+                
+                const updateCount = () => {
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+                    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target + '+';
+                    }
+                };
+                
+                updateCount();
+            });
+        });
+    </script>
+</body>
+</html>

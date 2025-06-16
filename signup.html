@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up for Zoomcar - Self-Drive Car Rental</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        :root {
+            --primary: #3563e9;
+            --secondary: #1a202c;
+            --accent: #ff7e5f;
+            --light: rgba(255, 255, 255, 0.85);
+            --dark: #212529;
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Animated background */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .background-shapes div {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .shape1 {
+            width: 350px;
+            height: 350px;
+            top: -150px;
+            right: -150px;
+            background: linear-gradient(45deg, var(--primary), #4a7bff);
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            width: 220px;
+            height: 220px;
+            bottom: -100px;
+            left: -100px;
+            background: linear-gradient(45deg, var(--accent), #ff9e7d);
+            animation-delay: 2s;
+        }
+
+        .shape3 {
+            width: 180px;
+            height: 180px;
+            top: 30%;
+            left: 15%;
+            background: linear-gradient(45deg, #ffc107, #ff9800);
+            animation-delay: 4s;
+        }
+
+        .shape4 {
+            width: 140px;
+            height: 140px;
+            bottom: 25%;
+            right: 20%;
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            animation-delay: 6s;
+        }
+
+        /* Header */
+        .main-header {
+            position: relative;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: white;
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 40px 20px;
+        }
+
+        /* Signup Container */
+        .signup-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 50px 40px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .signup-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent);
+            pointer-events: none;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-section h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+        }
+
+        .logo-section p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .signup-header h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+
+        .signup-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+        }
+
+        .signup-form .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 15px;
+            padding-left: 10px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 16px 20px 16px 55px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 16px;
+            color: white;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 0 0 3px rgba(53, 99, 233, 0.3);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0 30px;
+        }
+
+        .terms input {
+            margin-top: 5px;
+            margin-right: 12px;
+            accent-color: var(--primary);
+        }
+
+        .terms label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .terms a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+
+        .terms a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .btn-signup-form {
+            background: linear-gradient(45deg, var(--primary), #4a7bff);
+            color: white;
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(53, 99, 233, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-signup-form:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(53, 99, 233, 0.6);
+        }
+
+        .btn-signup-form:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+        }
+
+        .login-link a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .login-link a:hover {
+            color: var(--accent);
+        }
+
+        .login-link a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .login-link a:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Floating animation for shapes */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* Animation for the signup container */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-container {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .signup-container {
+                padding: 40px 25px;
+            }
+            
+            .logo-section h1 {
+                font-size: 36px;
+            }
+            
+            .signup-header h2 {
+                font-size: 28px;
+            }
+            
+            .form-control {
+                padding: 14px 16px 14px 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signup-container {
+                padding: 35px 20px;
+            }
+            
+            .logo-section h1 {
+                font-size: 32px;
+            }
+            
+            .signup-header h2 {
+                font-size: 26px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Password strength indicator */
+        .password-strength {
+            height: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .strength-meter {
+            height: 100%;
+            width: 0;
+            border-radius: 3px;
+            transition: width 0.3s, background 0.3s;
+        }
+
+        /* Footer */
+        .footer {
+            position: relative;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>ZOOMCAR</h1>
+            </div>
+            <div class="auth-buttons">
+                <a href="log-in.html" class="btn btn-login">Login</a>
+                <a href="signup.html" class="btn btn-signup">Sign Up</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Background Shapes -->
+    <div class="background-shapes">
+        <div class="shape1"></div>
+        <div class="shape2"></div>
+        <div class="shape3"></div>
+        <div class="shape4"></div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="signup-container">
+            <div class="logo-section">
+                <h1><a href="index.html">ZOOMCAR</a></h1>
+                <p>Self-Drive Car Rental Experience</p>
+            </div>
+            
+            <div class="signup-header">
+                <h2>Create Your Account</h2>
+                <p>Join India's leading self-drive car rental service</p>
+            </div>
+            
+            <form class="signup-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="first-name" class="form-control" placeholder="Enter your first name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="last-name" class="form-control" placeholder="Enter your last name" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-meter" id="strength-meter"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm-password" class="form-control" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="driving-license">Driving License</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="driving-license" class="form-control" placeholder="Enter driving license number" required>
+                    </div>
+                </div>
+                
+                <div class="terms">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I confirm that I have a valid driver's license and meet the minimum age requirement for renting a car.</label>
+                </div>
+                
+                <button type="submit" class="btn-signup-form">Create Account</button>
+                
+                <div class="login-link">
+                    Already have an account? <a href="log-in.html">Log In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2023 Zoomcar India Pvt. Ltd. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a></p>
+    </footer>
+    
+    <script>
+        // Form submission handling
+        document.querySelector('.signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const license = document.getElementById('driving-license').value;
+            
+            // Simple validation
+            if(!firstName || !lastName || !email || !phone || !password || !confirmPassword || !license) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if(password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.btn-signup-form');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Account Created!';
+                submitBtn.style.background = 'linear-gradient(45deg, #4caf50, #8bc34a)';
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = 'linear-gradient(45deg, var(--primary), #4a7bff)';
+                    
+                    // Reset form
+                    document.querySelector('.signup-form').reset();
+                    document.getElementById('strength-meter').style.width = '0';
+                    
+                    // Show success message
+                    alert('Welcome to Zoomcar! Your account has been created successfully.');
+                }, 1500);
+            }, 2000);
+        });
+        
+        // Password strength indicator
+        const passwordInput = document.getElementById('password');
+        const strengthMeter = document.getElementById('strength-meter');
+        
+        passwordInput.addEventListener('input', function() {
+            const password = passwordInput.value;
+            let strength = 0;
+            
+            // Check password length
+            if (password.length >= 8) strength += 25;
+            
+            // Check for lowercase letters
+            if (/[a-z]/.test(password)) strength += 25;
+            
+            // Check for uppercase letters
+            if (/[A-Z]/.test(password)) strength += 25;
+            
+            // Check for numbers and special characters
+            if (/[0-9]/.test(password)) strength += 15;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 10;
+            
+            // Update the strength meter
+            strengthMeter.style.width = strength + '%';
+            
+            // Update color based on strength
+            if (strength < 50) {
+                strengthMeter.style.background = '#ff5252'; // Red
+            } else if (strength < 75) {
+                strengthMeter.style.background = '#ffb142'; // Orange
+            } else {
+                strengthMeter.style.background = '#2ed573'; // Green
+            }
+        });
+        
+        // Create additional floating shapes
+        const backgroundShapes = document.querySelector('.background-shapes');
+        for (let i = 0; i < 8; i++) {
+            const shape = document.createElement('div');
+            const size = Math.random() * 120 + 30;
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            const color = `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.1)`;
+            const delay = Math.random() * 8;
+            
+            shape.style.width = `${size}px`;
+            shape.style.height = `${size}px`;
+            shape.style.left = `${posX}%`;
+            shape.style.top = `${posY}%`;
+            shape.style.background = color;
+            shape.style.animation = `float ${Math.random() * 15 + 10}s ease-in-out infinite`;
+            shape.style.animationDelay = `${delay}s`;
+            
+            backgroundShapes.appendChild(shape);
+        }
+    </script>
+</body>
+</html>

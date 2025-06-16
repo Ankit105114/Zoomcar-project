@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoomcar Fleet - Self-Drive Car Rental</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        :root {
+            --primary: #3563e9;
+            --secondary: #1a202c;
+            --accent: #ff7e5f;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info span {
+            margin-right: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 0 15px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .page-hero {
+            background: linear-gradient(rgba(53, 99, 233, 0.9), rgba(53, 99, 233, 0.9));
+            padding: 100px 0 60px;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .page-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Fleet Content */
+        .fleet-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Circular Filter UI */
+        .filter-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 110px; /* Adjust based on header height */
+            z-index: 100;
+            transition: all 0.3s ease, height 0.3s ease; /* Smooth transition for collapsing */
+            overflow: hidden; /* Hide overflow content when collapsed */
+        }
+
+        .filter-section.collapsed {
+            padding: 15px 30px; /* Smaller padding when collapsed */
+            height: 60px; /* Fixed smaller height */
+            top: 60px; /* Adjust sticky position when collapsed if needed */
+        }
+
+        .filter-section.collapsed .filter-categories {
+            opacity: 0;
+            height: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, height 0.3s ease;
+        }
+        
+        .filter-section.collapsed .filter-header {
+            justify-content: center; /* Center reset button when collapsed */
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .filter-header h3 {
+            font-size: 24px;
+            color: var(--secondary);
+            cursor: pointer; /* Make heading clickable to toggle */
+            transition: color 0.3s;
+        }
+
+        .filter-header h3:hover {
+            color: var(--primary);
+        }
+
+        .reset-btn {
+            background: var(--light-gray);
+            color: var(--gray);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .filter-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            transition: opacity 0.3s ease, height 0.3s ease;
+        }
+
+        .filter-category {
+            text-align: center;
+        }
+
+        .filter-category h4 {
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 80px;
+        }
+
+        .filter-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+            border: 2px solid var(--light-gray);
+            transition: all 0.3s;
+        }
+
+        .filter-option:hover .filter-circle,
+        .filter-option.active .filter-circle {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .filter-circle i {
+            font-size: 24px;
+        }
+
+        .filter-circle img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .filter-option span {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .filter-option.active span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Toggle button for collapsed filter */
+        .toggle-filters-btn {
+            display: none; /* Hidden by default */
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: auto; /* Push to right */
+        }
+
+        .toggle-filters-btn:hover {
+            background-color: #2a52d9;
+        }
+
+        .filter-section.collapsed .toggle-filters-btn {
+            display: inline-block; /* Show when collapsed */
+        }
+        .filter-section:not(.collapsed) .toggle-filters-btn {
+            display: none; /* Hide when not collapsed */
+        }
+
+        /* Car Grid */
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .car-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .car-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            /* Placeholder for broken images */
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        /* Fallback text for broken images */
+        .car-image[style*="url('')"]::before,
+        .car-image:not([style*="url("])::before {
+            content: "Image Not Available";
+        }
+
+
+        .car-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+
+        .car-name {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .car-details {
+            padding: 20px;
+        }
+
+        .car-specs {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .car-specs span {
+            display: flex;
+            align-items: center;
+        }
+
+        .car-specs i {
+            margin-right: 5px;
+            color: var(--primary);
+        }
+
+        .car-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .feature-tag {
+            background: rgba(53, 99, 233, 0.1);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .car-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price span {
+            font-size: 14px;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .btn-book {
+            background-color: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-book:hover {
+            background-color: #ff6b4a;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.3);
+        }
+
+        /* Styles for booked cars */
+        .car-card.booked {
+            opacity: 0.7;
+            pointer-events: none; /* Disable clicks on the entire card */
+            border: 2px solid #ccc;
+        }
+
+        .car-card.booked .btn-book {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .car-card.booked .btn-book:hover {
+            background-color: #ccc;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .car-card.booked .car-name::after {
+            content: " (Booked)";
+            font-size: 0.7em;
+            color: #eee;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #a0aec0;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .filter-categories {
+                gap: 20px;
+            }
+            
+            .filter-option {
+                width: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-hero h1 {
+                font-size: 36px;
+            }
+            
+            .filter-section {
+                padding: 20px;
+                top: 80px; /* Adjust sticky position for smaller screens */
+            }
+
+            .filter-section.collapsed {
+                padding: 10px 20px;
+                height: 50px;
+                top: 50px;
+            }
+            
+            .filter-categories {
+                flex-direction: column;
+                align-items: center;
+                gap: 25px;
+            }
+            
+            .filter-category {
+                width: 100%;
+            }
+            
+            .filter-options {
+                justify-content: center; /* Center options on smaller screens */
+            }
+            
+            .cars-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .filter-option {
+                width: 60px;
+            }
+            .filter-circle {
+                width: 50px;
+                height: 50px;
+            }
+            .filter-circle i, .filter-circle img {
+                font-size: 20px;
+            }
+            .filter-option span {
+                font-size: 10px;
+            }
+        }
+
+        /* Notification/Toast Message Styles */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1002;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notification {
+            background-color: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateX(100%);
+            animation: slideIn 0.5s forwards, fadeOut 0.5s forwards 2.5s;
+        }
+
+        .notification.success {
+            background-color: #28a745; /* Green for success */
+        }
+
+        .notification.error {
+            background-color: #dc3545; /* Red for error */
+        }
+
+        .notification.info {
+            background-color: #007bff; /* Blue for info */
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container top-bar-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 1234567890</span>
+                    <span><i class="fas fa-envelope"></i> support@zoomcar.com</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <h1><a href="index.html">ZOOMCAR</a></h1>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="howitworks.html">How it Works</a></li>
+                    <li><a href="fleet.html" class="active">Fleet</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="starrewards.html">Loyalty</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-login"><a href="log-in.html">Login</a></button>
+                    <button class="btn btn-signup"><a href="signup.html">Sign Up</a></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Our Premium Fleet</h1>
+            <p>Discover the perfect car for your journey with our diverse selection of vehicles</p>
+        </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section class="fleet-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Find Your Perfect Ride</h2>
+                <p>Filter our collection to match your preferences</p>
+            </div>
+            
+            <!-- Circular Filter UI -->
+            <div class="filter-section" id="filterSection">
+                <div class="filter-header">
+                    <h3 id="filterToggle">Filter Cars</h3>
+                    <button class="reset-btn">Reset Filters</button>
+                    <button class="toggle-filters-btn" id="expandFiltersBtn">Toggle Filters</button>
+                </div>
+                
+                <div class="filter-categories">
+                    <div class="filter-category">
+                        <h4>Car Type</h4>
+                        <div class="filter-options">
+                            <div class="filter-option active" data-filter="type" data-value="all">
+                                <div class="filter-circle">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <span>All</span>
+                            </div>
+                            <div class="filter-option" data-filter="type" data-value="hatchback">
+                                <div class="filter-circle">
+                                    <i class="fas fa-car-side"></i>
+                                </div>
+                                <span>Hatchback</span>
+                            </div>
+                            <div class="filter-option" data-filter="type" data-value="sedan">
+                                <div class="filter-circle">
+                                    <i class="fas fa-sedan"></i>
+                                </div>
+                                <span>Sedan</span>
+                            </div>
+                            <div class="filter-option" data-filter="type" data-value="suv">
+                                <div class="filter-circle">
+                                    <i class="fas fa-car-alt"></i>
+                                </div>
+                                <span>SUV</span>
+                            </div>
+                            <div class="filter-option" data-filter="type" data-value="luxury">
+                                <div class="filter-circle">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                                <span>Luxury</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-category">
+                        <h4>Price Range</h4>
+                        <div class="filter-options">
+                            <div class="filter-option active" data-filter="price" data-value="all">
+                                <div class="filter-circle">
+                                    ₹
+                                </div>
+                                <span>All</span>
+                            </div>
+                            <div class="filter-option" data-filter="price" data-value="low">
+                                <div class="filter-circle">
+                                    ₹150
+                                </div>
+                                <span>Economy</span>
+                            </div>
+                            <div class="filter-option" data-filter="price" data-value="mid">
+                                <div class="filter-circle">
+                                    ₹250
+                                </div>
+                                <span>Standard</span>
+                            </div>
+                            <div class="filter-option" data-filter="price" data-value="high">
+                                <div class="filter-circle">
+                                    ₹400
+                                </div>
+                                <span>Premium</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-category">
+                        <h4>Transmission</h4>
+                        <div class="filter-options">
+                            <div class="filter-option active" data-filter="transmission" data-value="all">
+                                <div class="filter-circle">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                <span>All</span>
+                            </div>
+                            <div class="filter-option" data-filter="transmission" data-value="automatic">
+                                <div class="filter-circle">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <span>Auto</span>
+                            </div>
+                            <div class="filter-option" data-filter="transmission" data-value="manual">
+                                <div class="filter-circle">
+                                    <i class="fas fa-hand-paper"></i>
+                                </div>
+                                <span>Manual</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Car Grid -->
+            <div class="cars-grid">
+                <!-- Car 1 -->
+                <div class="car-card" data-type="hatchback" data-price="low" data-transmission="manual" data-status="available">
+                    <div class="car-badge">Popular</div>
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Hyundai i20</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Hatchback</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">Music</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹149/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 2 (Set as booked for demonstration) -->
+                <div class="car-card" data-type="hatchback" data-price="low" data-transmission="manual" data-status="booked">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1550355291-bbee04a92027?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80');">
+                        <div class="car-name">Maruti Suzuki Swift</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Hatchback</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">ABS</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹139/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Booked</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 3 -->
+                <div class="car-card" data-type="sedan" data-price="mid" data-transmission="automatic" data-status="available">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Honda City</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Sedan</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">Music</span>
+                            <span class="feature-tag">ABS</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹199/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 4 -->
+                <div class="car-card" data-type="suv" data-price="high" data-transmission="automatic" data-status="available">
+                    <div class="car-badge">New</div>
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80');">
+                        <div class="car-name">Tata Nexon EV</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> SUV</span>
+                            <span><i class="fas fa-bolt"></i> Electric</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">Sunroof</span>
+                            <span class="feature-tag">Auto</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹299/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 5 -->
+                <div class="car-card" data-type="suv" data-price="high" data-transmission="manual" data-status="available">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Toyota Fortuner</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> SUV</span>
+                            <span><i class="fas fa-gas-pump"></i> Diesel</span>
+                            <span><i class="fas fa-user-friends"></i> 7 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">Sunroof</span>
+                            <span class="feature-tag">ABS</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹399/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 6 -->
+                <div class="car-card" data-type="luxury" data-price="high" data-transmission="automatic" data-status="available">
+                    <div class="car-badge">Luxury</div>
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1617814076230-8c409eccdc5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Mercedes C-Class</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Luxury</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">Premium</span>
+                            <span class="feature-tag">Sunroof</span>
+                            <span class="feature-tag">Auto</span>
+                            <span class="feature-tag">Leather</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹699/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 7 -->
+                <div class="car-card" data-type="sedan" data-price="mid" data-transmission="automatic" data-status="available">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1552519507-88aa2dfa9fdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Toyota Camry</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Sedan</span>
+                            <span><i class="fas fa-gas-pump"></i> Hybrid</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Auto</span>
+                            <span class="feature-tag">Leather</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹349/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 8 -->
+                <div class="car-card" data-type="hatchback" data-price="low" data-transmission="manual" data-status="available">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1567818735868-e71b99932e29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1467&q=80');">
+                        <div class="car-name">Tata Tiago</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Hatchback</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">ABS</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹129/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 9 -->
+                <div class="car-card" data-type="suv" data-price="mid" data-transmission="automatic" data-status="available">
+                    <div class="car-badge">Popular</div>
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80');">
+                        <div class="car-name">Hyundai Creta</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> SUV</span>
+                            <span><i class="fas fa-gas-pump"></i> Diesel</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Sunroof</span>
+                            <span class="feature-tag">Auto</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹279/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 10 -->
+                <div class="car-card" data-type="luxury" data-price="high" data-transmission="automatic" data-status="available">
+                    <div class="car-badge">Luxury</div>
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Audi A4</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Luxury</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">Premium</span>
+                            <span class="feature-tag">Sunroof</span>
+                            <span class="feature-tag">Auto</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹749/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 11 -->
+                <div class="car-card" data-type="hatchback" data-price="low" data-transmission="manual" data-status="available">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Renault Kwid</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Hatchback</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹119/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Car 12 -->
+                <div class="car-card" data-type="suv" data-price="high" data-transmission="automatic" data-status="available">
+                    <div class="car-badge">New</div>
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80');">
+                        <div class="car-name">Kia Seltos</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> SUV</span>
+                            <span><i class="fas fa-bolt"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Sunroof</span>
+                            <span class="feature-tag">Auto</span>
+                            <span class="feature-tag">Leather</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹329/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW CARS ADDED BELOW -->
+
+                <!-- Car 13 -->
+                <div class="car-card" data-type="sedan" data-price="mid" data-transmission="manual" data-status="available">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1599912015330-9b4f9a0c0c7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Maruti Suzuki Ciaz</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Sedan</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">Music</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹219/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 14 -->
+                <div class="car-card" data-type="suv" data-price="mid" data-transmission="manual" data-status="available">
+                    <div class="car-badge">Popular</div>
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1582234032338-f1f4d9b4b0a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Mahindra XUV300</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> SUV</span>
+                            <span><i class="fas fa-gas-pump"></i> Diesel</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">ABS</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹269/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 15 (Set as booked for demonstration) -->
+                <div class="car-card" data-type="hatchback" data-price="low" data-transmission="automatic" data-status="booked">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1610444391515-587b1c3e3e2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Hyundai Grand i10 Nios</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Hatchback</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Auto</span>
+                            <span class="feature-tag">Music</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹159/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Booked</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 16 -->
+                <div class="car-card" data-type="luxury" data-price="high" data-transmission="automatic" data-status="available">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1628108428862-23c34c8e7e1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">BMW 3 Series</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Luxury</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">Premium</span>
+                            <span class="feature-tag">Sunroof</span>
+                            <span class="feature-tag">Auto</span>
+                            <span class="feature-tag">Leather</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹899/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 17 -->
+                <div class="car-card" data-type="suv" data-price="mid" data-transmission="automatic" data-status="available">
+                    <div class="car-badge">New</div>
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1617478051676-e8d1a1d1c3e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">MG Hector</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> SUV</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Sunroof</span>
+                            <span class="feature-tag">Auto</span>
+                            <span class="feature-tag">Smart Features</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹309/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 18 -->
+                <div class="car-card" data-type="sedan" data-price="low" data-transmission="manual" data-status="available">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1614032766099-e6c8b9d6a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Maruti Suzuki Dzire</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Sedan</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">ABS</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹179/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 19 -->
+                <div class="car-card" data-type="hatchback" data-price="low" data-transmission="manual" data-status="available">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1621213032711-d1c9b2d3e4d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Hyundai Aura</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Sedan</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">AC</span>
+                            <span class="feature-tag">Airbag</span>
+                            <span class="feature-tag">Music</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹169/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car 20 (Set as booked for demonstration) -->
+                <div class="car-card" data-type="suv" data-price="high" data-transmission="automatic" data-status="booked">
+                    <div class="car-badge">Exclusive</div>
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1627915509984-2f22b8f4c2f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="car-name">Jeep Compass</div>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> SUV</span>
+                            <span><i class="fas fa-gas-pump"></i> Diesel</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-features">
+                            <span class="feature-tag">Premium AC</span>
+                            <span class="feature-tag">4x4</span>
+                            <span class="feature-tag">Sunroof</span>
+                            <span class="feature-tag">Advanced Safety</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹449/hr <span>+ taxes</span></div>
+                            <button class="btn-book">Booked</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Zoomcar</h3>
+                    <p>India's first self-drive car rental company providing affordable and convenient mobility solutions.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Top Cities</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Bangalore</a></li>
+                        <li><a href="#">Delhi NCR</a></li>
+                        <li><a href="#">Mumbai</a></li>
+                        <li><a href="#">Hyderabad</a></li>
+                        <li><a href="#">Chennai</a></li>
+                        <li><a href="#">Pune</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="howitworks.html">How it Works</a></li>
+                        <li><a href="FAQ's.html">FAQs</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3><a href="contactus.html">Contact Us</a></h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Zoomcar India Pvt. Ltd.<br>Bangalore, Karnataka</li>
+                        <li><i class="fas fa-phone"></i> +91 1234567890</li>
+                        <li><i class="fas fa-envelope"></i> support@zoomcar.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Zoomcar India Pvt. Ltd. All rights reserved. | Privacy Policy | Terms & Conditions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification container -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all filter options
+            const filterOptions = document.querySelectorAll('.filter-option');
+            const resetBtn = document.querySelector('.reset-btn');
+            const carCards = document.querySelectorAll('.car-card');
+            const filterSection = document.getElementById('filterSection');
+            const filterToggleHeading = document.getElementById('filterToggle');
+            const expandFiltersBtn = document.getElementById('expandFiltersBtn');
+            const notificationContainer = document.getElementById('notification-container');
+            
+            // Active filters object
+            let activeFilters = {
+                type: 'all',
+                price: 'all',
+                transmission: 'all'
+            };
+            
+            // Function to filter cars based on active filters
+            function filterCars() {
+                carCards.forEach(card => {
+                    const typeMatch = activeFilters.type === 'all' || card.dataset.type === activeFilters.type;
+                    const priceMatch = activeFilters.price === 'all' || card.dataset.price === activeFilters.price;
+                    const transmissionMatch = activeFilters.transmission === 'all' || card.dataset.transmission === activeFilters.transmission;
+                    
+                    if (typeMatch && priceMatch && transmissionMatch) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Function to toggle filter section collapse
+            function toggleFilterCollapse() {
+                filterSection.classList.toggle('collapsed');
+            }
+
+            // Add click event to filter options
+            filterOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const filterType = option.dataset.filter;
+                    const filterValue = option.dataset.value;
+                    
+                    // Remove active class from siblings within the same category
+                    const parent = option.closest('.filter-category');
+                    parent.querySelectorAll('.filter-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked option
+                    option.classList.add('active');
+                    
+                    // Update active filters
+                    activeFilters[filterType] = filterValue;
+                    
+                    // Apply filters
+                    filterCars();
+                });
+            });
+            
+            // Reset filters
+            resetBtn.addEventListener('click', () => {
+                // Reset active filters
+                activeFilters = {
+                    type: 'all',
+                    price: 'all',
+                    transmission: 'all'
+                };
+                
+                // Remove active class from all options
+                filterOptions.forEach(option => {
+                    option.classList.remove('active');
+                });
+                
+                // Set 'all' options as active for each category
+                document.querySelectorAll('.filter-category').forEach(category => {
+                    const allOption = category.querySelector('.filter-option[data-value="all"]');
+                    if (allOption) { // Ensure it exists before adding active class
+                        allOption.classList.add('active');
+                    }
+                });
+                
+                // Show all cars
+                carCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+
+                // Ensure filter section is expanded after reset
+                filterSection.classList.remove('collapsed');
+            });
+            
+            // Car booking buttons
+            const bookBtns = document.querySelectorAll('.btn-book');
+            bookBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const carCard = btn.closest('.car-card');
+                    const carName = carCard.querySelector('.car-name').textContent;
+                    const carPrice = carCard.querySelector('.price').textContent;
+                    const carStatus = carCard.dataset.status; // Get car status
+
+                    if (carStatus === 'available') {
+                        // Display a custom modal instead of alert for available cars
+                        showModal(`You are about to book: ${carName} for ${carPrice}.\nProceed to checkout!`, () => {
+                            // On confirmation, update status and show success notification
+                            carCard.dataset.status = 'booked'; // Mark as booked
+                            carCard.classList.add('booked'); // Add booked class for styling
+                            btn.textContent = 'Booked'; // Change button text
+                            showNotification(`${carName} has been successfully booked!`, 'success');
+                            console.log(`Booking confirmed for ${carName}`);
+                            // In a real application, you would redirect to a booking page or open a detailed booking form here.
+                        });
+                    } else {
+                        // Show an error notification if the car is already booked
+                        showNotification(`${carName} is currently unavailable for booking.`, 'error');
+                    }
+                });
+            });
+
+            // Modal for booking confirmation (replaces alert)
+            function showModal(message, onConfirm) {
+                // Create modal elements
+                const modalOverlay = document.createElement('div');
+                modalOverlay.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.7);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1001;
+                `;
+
+                const modalContent = document.createElement('div');
+                modalContent.style.cssText = `
+                    background: white;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                    text-align: center;
+                    max-width: 400px;
+                    width: 90%;
+                    position: relative;
+                `;
+
+                const modalMessage = document.createElement('p');
+                modalMessage.textContent = message;
+                modalMessage.style.cssText = `
+                    font-size: 1.1em;
+                    margin-bottom: 25px;
+                    color: var(--dark);
+                    white-space: pre-wrap; /* Preserve newlines */
+                `;
+
+                const confirmBtn = document.createElement('button');
+                confirmBtn.textContent = 'Confirm Booking';
+                confirmBtn.style.cssText = `
+                    background-color: var(--primary);
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-size: 1em;
+                    margin: 0 10px;
+                    transition: background-color 0.3s;
+                `;
+                confirmBtn.onmouseover = () => confirmBtn.style.backgroundColor = '#2a52d9';
+                confirmBtn.onmouseout = () => confirmBtn.style.backgroundColor = 'var(--primary)';
+
+
+                const cancelBtn = document.createElement('button');
+                cancelBtn.textContent = 'Cancel';
+                cancelBtn.style.cssText = `
+                    background-color: var(--gray);
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-size: 1em;
+                    margin: 0 10px;
+                    transition: background-color 0.3s;
+                `;
+                cancelBtn.onmouseover = () => cancelBtn.style.backgroundColor = '#5a6268';
+                cancelBtn.onmouseout = () => cancelBtn.style.backgroundColor = 'var(--gray)';
+
+                // Append elements
+                modalContent.appendChild(modalMessage);
+                modalContent.appendChild(confirmBtn);
+                modalContent.appendChild(cancelBtn);
+                modalOverlay.appendChild(modalContent);
+                document.body.appendChild(modalOverlay);
+
+                // Event listeners for buttons
+                confirmBtn.addEventListener('click', () => {
+                    document.body.removeChild(modalOverlay);
+                    if (onConfirm) onConfirm();
+                });
+
+                cancelBtn.addEventListener('click', () => {
+                    document.body.removeChild(modalOverlay);
+                });
+
+                // Close modal if clicked outside
+                modalOverlay.addEventListener('click', (e) => {
+                    if (e.target === modalOverlay) {
+                        document.body.removeChild(modalOverlay);
+                    }
+                });
+            }
+
+            // Function to show a notification/toast message
+            function showNotification(message, type = 'info', duration = 3000) {
+                const notificationDiv = document.createElement('div');
+                notificationDiv.classList.add('notification', type);
+                notificationDiv.textContent = message;
+
+                notificationContainer.appendChild(notificationDiv);
+
+                // Remove the notification after the specified duration
+                setTimeout(() => {
+                    notificationDiv.remove();
+                }, duration);
+            }
+
+            // Sticky Filter Collapse/Expand on Scroll
+            let scrollThreshold = 200; // Pixels scrolled before collapsing
+            let isFilterExpanded = true; // State to track filter expansion
+
+            function handleScroll() {
+                if (window.scrollY > scrollThreshold && isFilterExpanded) {
+                    filterSection.classList.add('collapsed');
+                    isFilterExpanded = false;
+                } else if (window.scrollY <= scrollThreshold && !isFilterExpanded) {
+                    filterSection.classList.remove('collapsed');
+                    isFilterExpanded = true;
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll);
+
+            // Toggle filter section on heading click
+            filterToggleHeading.addEventListener('click', () => {
+                toggleFilterCollapse();
+                isFilterExpanded = !filterSection.classList.contains('collapsed'); // Update state
+            });
+
+            // Toggle filter section on "Toggle Filters" button click (when collapsed by scroll)
+            expandFiltersBtn.addEventListener('click', () => {
+                filterSection.classList.remove('collapsed');
+                isFilterExpanded = true;
+            });
+
+            // Initialize filters and car statuses on page load
+            document.querySelectorAll('.filter-category').forEach(category => {
+                const defaultAllOption = category.querySelector('.filter-option[data-value="all"]');
+                if (defaultAllOption) { // Ensure it exists before adding active class
+                    defaultAllOption.classList.add('active');
+                }
+            });
+
+            // Initialize car statuses for already booked cars (for demonstration)
+            carCards.forEach(card => {
+                if (card.dataset.status === 'booked') {
+                    card.classList.add('booked');
+                    card.querySelector('.btn-book').textContent = 'Booked';
+                }
+            });
+
+            filterCars(); // Apply filters on initial load
+
+            // Initial scroll check in case page loads already scrolled down
+            handleScroll();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locations - Zoomcar Self-Drive Car Rental</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- IMPORTANT: Replace 'AIzaSyD9B5JhXgJY7Y6Y7Y6Y7Y6Y7Y6Y7Y6Y7Y6Y' with your actual Google Maps API Key.
+         Without a valid API key, the map will not load or function correctly. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9B5JhXgJY7Y6Y7Y6Y7Y6Y7Y6Y7Y6Y7Y6Y&callback=initMap" async defer></script>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        :root {
+            --primary: #3563e9;
+            --secondary: #1a202c;
+            --accent: #ff7e5f;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info span {
+            margin-right: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 0 15px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .page-hero {
+            background: linear-gradient(rgba(53, 99, 233, 0.9), rgba(53, 99, 233, 0.9));
+            padding: 100px 0 60px;
+            color: white;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .page-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Locations Content */
+        .locations-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Map Section */
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 500px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            max-width: 300px;
+        }
+
+        .map-overlay h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 14px;
+        }
+
+        .search-box button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .city-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .city-btn {
+            background: var(--light);
+            border: 1px solid #ddd;
+            padding: 6px 15px;
+            border-radius: 30px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .city-btn.active, .city-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Locations Grid */
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .location-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .location-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .location-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .location-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .location-content {
+            padding: 25px;
+        }
+
+        .location-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .location-address {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .location-address i {
+            color: var(--primary);
+            margin-right: 10px;
+            font-size: 20px;
+            min-width: 24px;
+        }
+
+        .location-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .info-item i {
+            color: var(--primary);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .info-item span {
+            display: block;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .btn-location {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-location:hover {
+            background: #2a52c7;
+        }
+
+        /* How to Find Section */
+        .find-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .step-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(53, 99, 233, 0.1);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+        }
+
+        .step-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #a0aec0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .page-hero h1 {
+                font-size: 36px;
+            }
+            
+            .map-overlay {
+                position: relative;
+                top: 0;
+                left: 0;
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .map-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container top-bar-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 1234567890</span>
+                    <span><i class="fas fa-envelope"></i> support@zoomcar.com</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <h1><a href="index.html">ZOOMCAR</a></h1>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="howitworks.html">How it Works</a></li>
+                    <li><a href="fleet.html">Fleet</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="locations.html" class="active">Locations</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="starrewards.html">Loyalty</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-login"><a href="log-in.html">Login</a></button>
+                    <button class="btn btn-signup"><a href="signup.html">Sign Up</a></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Our Locations</h1>
+            <p>Find Zoomcar pickup points across major cities in India</p>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section class="locations-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Find a Location Near You</h2>
+                <p>Pick up your self-drive car from convenient locations across India</p>
+            </div>
+            
+            <!-- Map Section -->
+            <div class="map-container">
+                <div class="map-overlay">
+                    <h3>Search Locations</h3>
+                    <div class="search-box">
+                        <input type="text" id="search-location" placeholder="Enter city or location...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="city-filter">
+                        <div class="city-btn active" data-city="all">All Cities</div>
+                        <div class="city-btn" data-city="bangalore">Bangalore</div>
+                        <div class="city-btn" data-city="delhi">Delhi</div>
+                        <div class="city-btn" data-city="mumbai">Mumbai</div>
+                        <div class="city-btn" data-city="hyderabad">Hyderabad</div>
+                    </div>
+                </div>
+                <div id="map"></div>
+            </div>
+            
+            <!-- Locations Grid -->
+            <div class="locations-grid">
+                <!-- Location 1 -->
+                <div class="location-card" data-city="bangalore">
+                    <div class="location-image" style="background-image: url('https://images.unsplash.com/photo-1590650153855-d9e808231d41?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                        <div class="location-badge">24/7 Access</div>
+                    </div>
+                    <div class="location-content">
+                        <h3>MG Road, Bangalore</h3>
+                        <div class="location-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 MG Road, Near Metro Station, Bangalore 560001</span>
+                        </div>
+                        <div class="location-info">
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <span>24/7</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-car"></i>
+                                <span>12 Cars</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+91 9876543210</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-location">Book at this Location</a>
+                    </div>
+                </div>
+                
+                <!-- Location 2 -->
+                <div class="location-card" data-city="delhi">
+                    <div class="location-image" style="background-image: url('https://images.unsplash.com/photo-1580519542036-c47de6196ba5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');">
+                        <div class="location-badge">Express Pickup</div>
+                    </div>
+                    <div class="location-content">
+                        <h3>Connaught Place, Delhi</h3>
+                        <div class="location-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Block E, Inner Circle, Connaught Place, New Delhi 110001</span>
+                        </div>
+                        <div class="location-info">
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <span>6 AM - 11 PM</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-car"></i>
+                                <span>18 Cars</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+91 9876543211</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-location">Book at this Location</a>
+                    </div>
+                </div>
+                
+                <!-- Location 3 -->
+                <div class="location-card" data-city="mumbai">
+                    <div class="location-image" style="background-image: url('https://images.unsplash.com/photo-1567599667031-7a9a0536b3c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80');">
+                        <div class="location-badge">Airport Location</div>
+                    </div>
+                    <div class="location-content">
+                        <h3>Mumbai Airport</h3>
+                        <div class="location-address">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Terminal 2, Chhatrapati Shivaji Maharaj International Airport, Mumbai 400099</span>
+                        </div>
+                        <div class="location-info">
+                            <div class="info-item">
+                                <i class="fas fa-clock"></i>
+                                <span>24/7</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-car"></i>
+                                <span>25 Cars</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+91 9876543212</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-location">Book at this Location</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Find Section -->
+    <section class="find-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>How to Find Us</h2>
+                <p>Simple steps to locate and book at our pickup points</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Find Location</h3>
+                    <p>Search for the nearest Zoomcar location using our map or location finder</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Book in App</h3>
+                    <p>Select your preferred car and time slot through our mobile app</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Pick Up & Drive</h3>
+                    <p>Visit the location at your booking time and unlock the car with the app</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Zoomcar</h3>
+                    <p>India's first self-drive car rental company providing affordable and convenient mobility solutions.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="howitworks.html">How it Works</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3><a href="contactus.html">Contact Us</a></h3>
+                    <ul class="footer-links">
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="howitworks.html">How it Works</a></li>
+                        <li><a href="FAQ's.html">FAQs</a></li>
+                        <li><a href="fleet.html">Our Fleet</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="locations.html">Locations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Zoomcar India Pvt. Ltd.<br>Bangalore, Karnataka</li>
+                        <li><i class="fas fa-phone"></i> +91 1234567890</li>
+                        <li><i class="fas fa-envelope"></i> support@zoomcar.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Zoomcar India Pvt. Ltd. All rights reserved. | Privacy Policy | Terms & Conditions</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Google Maps
+        function initMap() {
+            // Default location (Bangalore)
+            const bangalore = { lat: 12.9716, lng: 77.5946 };
+            
+            // Create a map centered at Bangalore
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: bangalore,
+                // Custom map styles to match the theme
+                styles: [
+                    {
+                        "featureType": "administrative",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{"color": "#444444"}]
+                    },
+                    {
+                        "featureType": "landscape",
+                        "elementType": "all",
+                        "stylers": [{"color": "#f2f2f2"}]
+                    },
+                    {
+                        "featureType": "poi",
+                        "elementType": "all",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "all",
+                        "stylers": [{"saturation": -100}, {"lightness": 45}]
+                    },
+                    {
+                        "featureType": "road.highway",
+                        "elementType": "all",
+                        "stylers": [{"visibility": "simplified"}]
+                    },
+                    {
+                        "featureType": "road.arterial",
+                        "elementType": "labels.icon",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "transit",
+                        "elementType": "all",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "all",
+                        "stylers": [{"color": "#c6e5f3"}, {"visibility": "on"}]
+                    }
+                ]
+            });
+            
+            // Define locations with their coordinates
+            const locations = [
+                {
+                    position: { lat: 12.9758, lng: 77.6055 },
+                    title: "MG Road, Bangalore",
+                    type: "bangalore",
+                    address: "123 MG Road, Near Metro Station"
+                },
+                {
+                    position: { lat: 12.9784, lng: 77.6408 },
+                    title: "Indiranagar, Bangalore",
+                    type: "bangalore",
+                    address: "100 Feet Road, Indiranagar"
+                },
+                {
+                    position: { lat: 28.6315, lng: 77.2167 },
+                    title: "Connaught Place, Delhi",
+                    type: "delhi",
+                    address: "Block E, Inner Circle"
+                },
+                {
+                    position: { lat: 28.5562, lng: 77.1000 },
+                    title: "Cyber City, Gurgaon",
+                    type: "delhi",
+                    address: "Tower A, Cyber City"
+                },
+                {
+                    position: { lat: 19.0760, lng: 72.8777 },
+                    title: "Bandra Kurla Complex",
+                    type: "mumbai",
+                    address: "G Block, Bandra Kurla Complex"
+                },
+                {
+                    position: { lat: 19.0896, lng: 72.8656 },
+                    title: "Mumbai Airport",
+                    type: "mumbai",
+                    address: "Terminal 2, Arrival Area"
+                },
+                {
+                    position: { lat: 17.3850, lng: 78.4867 },
+                    title: "Hitech City, Hyderabad",
+                    type: "hyderabad",
+                    address: "Plot 34, Hitech City"
+                }
+            ];
+            
+            // Array to store map markers
+            const markers = [];
+
+            // Create markers for each location
+            locations.forEach(location => {
+                const marker = new google.maps.Marker({
+                    position: location.position,
+                    map: map,
+                    title: location.title
+                });
+                
+                // Add info window
+                const infowindow = new google.maps.InfoWindow({
+                    content: `<div style="padding:10px">
+                                <strong>${location.title}</strong><br>
+                                ${location.address}<br>
+                                <button style="margin-top:10px; padding:5px 10px; background:#3563e9; color:white; border:none; border-radius:4px; cursor:pointer">
+                                    Book Here
+                                </button>
+                              </div>`
+                });
+                
+                marker.addListener("click", () => {
+                    infowindow.open(map, marker);
+                });
+                
+                markers.push({
+                    marker: marker,
+                    type: location.type
+                });
+            });
+            
+            // Filter locations by city
+            const cityButtons = document.querySelectorAll(".city-btn");
+            cityButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    // Update active button styling
+                    cityButtons.forEach(btn => btn.classList.remove("active"));
+                    button.classList.add("active");
+                    
+                    const city = button.dataset.city;
+                    
+                    // Filter visibility of location cards
+                    const locationCards = document.querySelectorAll(".location-card");
+                    locationCards.forEach(card => {
+                        if (city === "all" || card.dataset.city === city) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
+                    });
+                    
+                    // Filter visibility of markers on the map
+                    markers.forEach(item => {
+                        if (city === "all" || item.type === city) {
+                            item.marker.setVisible(true);
+                        } else {
+                            item.marker.setVisible(false);
+                        }
+                    });
+                    
+                    // Adjust map center based on selected city
+                    let center;
+                    switch(city) {
+                        case "bangalore":
+                            center = { lat: 12.9716, lng: 77.5946 };
+                            break;
+                        case "delhi":
+                            center = { lat: 28.6139, lng: 77.2090 };
+                            break;
+                        case "mumbai":
+                            center = { lat: 19.0760, lng: 72.8777 };
+                            break;
+                        case "hyderabad":
+                            center = { lat: 17.3850, lng: 78.4867 };
+                            break;
+                        default: // For "All Cities" or any unhandled case, default to Bangalore
+                            center = bangalore;
+                    }
+                    
+                    map.setCenter(center);
+                    // Adjust zoom level: wider for "all cities", closer for specific cities
+                    map.setZoom(city === "all" ? 5 : 12);
+                });
+            });
+        }
+        
+        // Initialize map and event listeners when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap(); // Initialize Google Maps
+
+            // Location card click event listener
+            const locationCards = document.querySelectorAll('.location-card');
+            locationCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const locationName = card.querySelector('h3').textContent;
+                    // Replaced alert() with console.log() to comply with guidelines.
+                    // For a live application, consider a custom modal or toast notification.
+                    console.log(`Booking at ${locationName} initiated!`);
+                    // Example of how you might trigger a custom modal (conceptual):
+                    // showCustomBookingModal(`Booking at ${locationName} initiated!`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

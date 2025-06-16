@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Solutions - Zoomcar Self-Drive Car Rental</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        :root {
+            --primary: #3563e9;
+            --secondary: #1a202c;
+            --accent: #ff7e5f;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info span {
+            margin-right: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 0 15px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .business-hero {
+            background: linear-gradient(rgba(53, 99, 233, 0.9), rgba(53, 99, 233, 0.9)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 80px;
+            color: white;
+            text-align: center;
+        }
+
+        .business-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .business-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .btn-business {
+            background-color: var(--accent);
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-business:hover {
+            background-color: #ff6b4a;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 126, 95, 0.4);
+        }
+
+        /* Business Solutions */
+        .solutions-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .solution-card {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .solution-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(53, 99, 233, 0.1);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 36px;
+        }
+
+        .solution-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 80px 0;
+            background: linear-gradient(to right, var(--primary), #4a7bff);
+            color: white;
+        }
+
+        .benefits-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .benefit-icon {
+            font-size: 48px;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .benefit-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        /* How it Works */
+        .process-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 auto 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            width: calc(100% + 40px);
+            height: 2px;
+            background: var(--primary);
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .process-step h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .testimonial-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .testimonial-info h4 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+
+        .company {
+            font-style: italic;
+            color: var(--gray);
+        }
+
+        .rating {
+            color: #ffc107;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            position: relative;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 50px;
+            color: rgba(53, 99, 233, 0.1);
+            position: absolute;
+            line-height: 1;
+        }
+
+        .testimonial-text::before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .testimonial-text::after {
+            content: '"';
+            bottom: -40px;
+            right: -10px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(rgba(53, 99, 233, 0.9), rgba(53, 99, 233, 0.9)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .cta-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .btn-cta {
+            background-color: white;
+            color: var(--primary);
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-cta:hover {
+            background-color: var(--accent);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #a0aec0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .business-hero h1 {
+                font-size: 36px;
+            }
+            
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+            
+            .cta-content h2 {
+                font-size: 32px;
+            }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease-in-out;
+            position: relative; /* For close button positioning */
+        }
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .modal-close-btn:hover {
+            color: var(--dark);
+        }
+
+        /* Drop Message Styles */
+        .drop-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50; /* Green for success */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            z-index: 1002; /* Above modal */
+        }
+        .drop-message.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Explicit styling for form inputs within the modal */
+        .modal-content form input[type="text"],
+        .modal-content form input[type="email"],
+        .modal-content form input[type="tel"],
+        .modal-content form textarea {
+            border: 1px solid var(--gray); /* Ensure a consistent border */
+            padding: 12px 15px; /* Adjust padding for better look */
+            border-radius: 8px; /* Ensure rounded corners */
+            font-size: 16px; /* Consistent font size */
+            box-sizing: border-box; /* Ensure padding/border don't affect width */
+            width: 100%; /* Ensure inputs take full width */
+        }
+        .modal-content form input:focus,
+        .modal-content form textarea:focus {
+            outline: none;
+            border-color: var(--primary); /* Highlight border on focus */
+            box-shadow: 0 0 0 3px rgba(53, 99, 233, 0.2); /* Custom focus ring */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container top-bar-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 1234567890</span>
+                    <span><i class="fas fa-envelope"></i> support@zoomcar.com</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <h1><a href="index.html">ZOOMCAR</a></h1>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="howitworks.html">How it Works</a></li>
+                    <li><a href="fleet.html">Fleet</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="business.html" class="active">Business</a></li>
+                    <li><a href="starrewards.html">Loyalty</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-login"><a href="log-in.html">Login</a></button>
+                    <button class="btn btn-signup"><a href="signup.html">Sign Up</a></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Business Hero -->
+    <section class="business-hero">
+        <div class="container">
+            <h1>Business Solutions</h1>
+            <p>Transform your corporate mobility with India's leading self-drive car rental service</p>
+            <a href="#" class="btn-business" id="requestDemoBtn">Request a Demo</a>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Corporate Mobility Solutions</h2>
+                <p>Tailored services to meet your business transportation needs</p>
+            </div>
+            
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Employee Transportation</h3>
+                    <p>Provide flexible mobility solutions for your employees with our corporate car rental program.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Executive Travel</h3>
+                    <p>Premium vehicles for your executives with chauffeur or self-drive options for business travel.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Logistics Support</h3>
+                    <p>On-demand vehicles for your logistics needs with flexible rental durations.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>Airport Transfers</h3>
+                    <p>Reliable transportation solutions for airport pickups and drop-offs for your employees and clients.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Event Management</h3>
+                    <p>Complete transportation solutions for corporate events, conferences, and meetings.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>Monthly Subscriptions</h3>
+                    <p>Cost-effective monthly plans for long-term vehicle requirements with dedicated account management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Business Benefits</h2>
+                <p>Why leading companies choose Zoomcar for their mobility needs</p>
+            </div>
+            
+            <div class="benefits-container">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Cost Savings</h3>
+                    <p>Reduce fleet management costs by up to 40% compared to owning vehicles.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <h3>Simplified Billing</h3>
+                    <p>Consolidated monthly invoices with detailed usage reports for easy expense management.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Dedicated Support</h3>
+                    <p>24/7 priority support with dedicated account managers for your business.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Comprehensive Insurance</h3>
+                    <p>All rentals include comprehensive insurance coverage for complete peace of mind.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Digital Management</h3>
+                    <p>Manage all bookings and track usage through our corporate dashboard and mobile app.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainable Choice</h3>
+                    <p>Reduce your carbon footprint with access to our electric and hybrid vehicle fleet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works for Businesses</h2>
+                <p>Simple steps to get started with Zoomcar Business Solutions</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Contact Us</h3>
+                    <p>Get in touch with our business team to discuss your requirements.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Custom Plan</h3>
+                    <p>We create a tailored mobility solution based on your specific needs.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Account Setup</h3>
+                    <p>We set up your corporate account with customized access controls.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Start Driving</h3>
+                    <p>Your employees can start booking vehicles through our app or portal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Trusted by Industry Leaders</h2>
+                <p>What our business clients say about us</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">RS</div>
+                        <div class="testimonial-info">
+                            <h4>Rajesh Sharma</h4>
+                            <div class="company">CTO, TechGrowth Solutions</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">Zoomcar's business solution has transformed how we manage employee transportation. The cost savings have been substantial, and our employees appreciate the flexibility.</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">PM</div>
+                        <div class="testimonial-info">
+                            <h4>Priya Mehta</h4>
+                            <div class="company">HR Director, InnovateX</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">The corporate dashboard makes managing our transportation budget so much easier. Detailed reporting and consolidated billing have simplified our expense management.</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">AK</div>
+                        <div class="testimonial-info">
+                            <h4>Arun Kumar</h4>
+                            <div class="company">Operations Head, Global Logistics</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">We've been using Zoomcar for our logistics support vehicles for over a year. The flexibility to scale our fleet up or down based on demand has been invaluable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Transform Your Corporate Mobility</h2>
+                <p>Join thousands of businesses that trust Zoomcar for their transportation needs</p>
+                <a href="#" class="btn-cta" id="getProposalBtn">Get Business Proposal</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Zoomcar</h3>
+                    <p>India's first self-drive car rental company providing affordable and convenient mobility solutions.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Business Solutions</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Employee Transportation</a></li>
+                        <li><a href="#">Executive Travel</a></li>
+                        <li><a href="#">Logistics Support</a></li>
+                        <li><a href="#">Airport Transfers</a></li>
+                        <li><a href="#">Corporate Events</a></li>
+                        <li><a href="#">Monthly Subscriptions</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="howitworks.html">How it Works</a></li>
+                        <li><a href="FAQ's.html">FAQs</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3><a href="contactus.html">Contact Us</a></h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Zoomcar India Pvt. Ltd.<br>Bangalore, Karnataka</li>
+                        <li><i class="fas fa-phone"></i> +91 1234567890</li>
+                        <li><i class="fas fa-envelope"></i> business@zoomcar.com</li>
+                        <li><i class="fas fa-headset"></i> Business Support: 24/7</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Zoomcar India Pvt. Ltd. All rights reserved. | Privacy Policy | Terms & Conditions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal Structure -->
+    <div id="infoModalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeModalBtn">&times;</button>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center" id="modalTitle"></h2>
+
+            <form id="infoForm">
+                <div class="mb-4">
+                    <label for="fullName" class="block text-gray-700 text-sm font-bold mb-2">Full Name:</label>
+                    <input type="text" id="fullName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500" placeholder="Your full name" required>
+                    <p id="fullNameError" class="text-red-500 text-xs italic mt-1 hidden">Please enter your full name.</p>
+                </div>
+
+                <div class="mb-4">
+                    <label for="emailAddress" class="block text-gray-700 text-sm font-bold mb-2">Email Address:</label>
+                    <input type="email" id="emailAddress" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500" placeholder="example@company.com" required>
+                    <p id="emailAddressError" class="text-red-500 text-xs italic mt-1 hidden">Please enter a valid email address.</p>
+                </div>
+
+                <div class="mb-4">
+                    <label for="phoneNumber" class="block text-gray-700 text-sm font-bold mb-2">Phone Number:</label>
+                    <input type="tel" id="phoneNumber" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500" placeholder="e.g., +91 9876543210" required>
+                    <p id="phoneNumberError" class="text-red-500 text-xs italic mt-1 hidden">Please enter a valid phone number.</p>
+                </div>
+
+                <div class="mb-4">
+                    <label for="companyName" class="block text-gray-700 text-sm font-bold mb-2">Company Name:</label>
+                    <input type="text" id="companyName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500" placeholder="Your Company Name (Optional)">
+                </div>
+
+                <div class="mb-6">
+                    <label for="messageText" class="block text-gray-700 text-sm font-bold mb-2">Message (Optional):</label>
+                    <textarea id="messageText" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 h-24" placeholder="Tell us more about your needs..."></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="button" id="cancelFormBtn" class="bg-gray-300 text-gray-800 py-2 px-6 rounded-lg font-semibold hover:bg-gray-400 transition-colors duration-300">
+                        Cancel
+                    </button>
+                    <button type="submit" id="submitFormBtn" class="bg-blue-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Drop Message Area -->
+    <div id="mainDropMessage" class="drop-message"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Elements ---
+            const requestDemoBtn = document.getElementById('requestDemoBtn');
+            const getProposalBtn = document.getElementById('getProposalBtn');
+            const infoModalOverlay = document.getElementById('infoModalOverlay');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const infoForm = document.getElementById('infoForm');
+            const modalTitle = document.getElementById('modalTitle');
+            const submitFormBtn = document.getElementById('submitFormBtn');
+            const cancelFormBtn = document.getElementById('cancelFormBtn');
+            const mainDropMessage = document.getElementById('mainDropMessage');
+
+            // Form inputs and error messages
+            const fullNameInput = document.getElementById('fullName');
+            const emailAddressInput = document.getElementById('emailAddress');
+            const phoneNumberInput = document.getElementById('phoneNumber');
+            const companyNameInput = document.getElementById('companyName');
+            const messageTextInput = document.getElementById('messageText');
+
+            const fullNameError = document.getElementById('fullNameError');
+            const emailAddressError = document.getElementById('emailAddressError');
+            const phoneNumberError = document.getElementById('phoneNumberError');
+
+            let formPurpose = ''; // To distinguish between 'demo' and 'proposal'
+
+
+            // --- Helper Functions ---
+
+            /**
+             * Displays a temporary drop message.
+             * @param {string} messageText - The text to display.
+             * @param {string} type - 'success' or 'error' to determine background color.
+             */
+            function showDropMessage(messageText, type) {
+                mainDropMessage.textContent = messageText;
+                mainDropMessage.style.backgroundColor = (type === 'success') ? '#4CAF50' : '#e74c3c';
+                mainDropMessage.classList.add('show');
+
+                setTimeout(() => {
+                    mainDropMessage.classList.remove('show');
+                    setTimeout(() => {
+                        mainDropMessage.textContent = '';
+                        mainDropMessage.style.backgroundColor = '';
+                    }, 500); // Wait for fade out
+                }, 3000);
+            }
+
+            /**
+             * Shows the information modal with a specific title.
+             * @param {string} title - The title for the modal.
+             * @param {string} purpose - 'demo' or 'proposal' to set the form purpose.
+             */
+            function showInfoModal(title, purpose) {
+                modalTitle.textContent = title;
+                formPurpose = purpose; // Set the purpose
+                infoModalOverlay.classList.add('show');
+                // Clear inputs and error messages
+                infoForm.reset(); // Resets all form fields
+                hideAllErrors();
+            }
+
+            /**
+             * Hides the information modal.
+             */
+            function hideInfoModal() {
+                infoModalOverlay.classList.remove('show');
+            }
+
+            /**
+             * Hides all form error messages.
+             */
+            function hideAllErrors() {
+                fullNameError.classList.add('hidden');
+                emailAddressError.classList.add('hidden');
+                phoneNumberError.classList.add('hidden');
+            }
+
+            /**
+             * Validates the form inputs.
+             * @returns {boolean} True if all required inputs are valid, false otherwise.
+             */
+            function validateForm() {
+                let isValid = true;
+                hideAllErrors(); // Clear previous errors
+
+                if (fullNameInput.value.trim() === '') {
+                    fullNameError.classList.remove('hidden');
+                    isValid = false;
+                }
+
+                if (emailAddressInput.value.trim() === '' || !emailAddressInput.checkValidity()) {
+                    emailAddressError.classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Basic phone number validation (non-empty)
+                // You might want a more robust regex for real-world scenarios
+                if (phoneNumberInput.value.trim() === '') {
+                    phoneNumberError.classList.remove('hidden');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+
+            // --- Event Listeners ---
+
+            // "Request a Demo" button click
+            requestDemoBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showInfoModal('Request a Demo', 'demo');
+            });
+
+            // "Get Business Proposal" button click
+            getProposalBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                showInfoModal('Get Business Proposal', 'proposal');
+            });
+
+            // Close modal button click
+            closeModalBtn.addEventListener('click', hideInfoModal);
+
+            // Cancel form button click
+            cancelFormBtn.addEventListener('click', hideInfoModal);
+
+            // Submit form logic
+            infoForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+
+                if (validateForm()) {
+                    // Collect form data
+                    const formData = {
+                        fullName: fullNameInput.value.trim(),
+                        email: emailAddressInput.value.trim(),
+                        phone: phoneNumberInput.value.trim(),
+                        company: companyNameInput.value.trim(),
+                        message: messageTextInput.value.trim(),
+                        purpose: formPurpose // 'demo' or 'proposal'
+                    };
+
+                    console.log("Form Submitted:", formData);
+
+                    // Simulate API call or data processing
+                    // In a real application, you would send this 'formData' to your backend
+                    setTimeout(() => {
+                        hideInfoModal(); // Hide modal on successful submission
+                        const messageType = (formPurpose === 'demo') ? 'Demo' : 'Proposal';
+                        showDropMessage(`${messageType} booked successfully! Our team will contact you shortly.`, 'success');
+                    }, 500); // Simulate network delay
+                } else {
+                    showDropMessage('Please correct the errors in the form.', 'error');
+                }
+            });
+
+            // Optional: Close modal if overlay is clicked
+            infoModalOverlay.addEventListener('click', function(e) {
+                if (e.target === infoModalOverlay) {
+                    hideInfoModal();
+                }
+            });
+
+            // Animate solution cards on scroll (existing functionality)
+            const solutionCards = document.querySelectorAll('.solution-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            solutionCards.forEach(card => {
+                card.style.opacity = "0";
+                card.style.transform = "translateY(30px)";
+                card.style.transition = "all 0.6s ease";
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

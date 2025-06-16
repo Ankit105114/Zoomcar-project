@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs | Zoomcar - Self-Drive Car Rental in India</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        :root {
+            --primary: #3563e9;
+            --secondary: #1a202c;
+            --accent: #ff7e5f;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info span {
+            margin-right: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin: 0 15px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* FAQ Hero Section */
+        .faq-hero {
+            background: linear-gradient(rgba(53, 99, 233, 0.85), rgba(53, 99, 233, 0.85)), url('https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2011&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .faq-hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .search-faq {
+            background: white;
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-faq input {
+            flex: 1;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-faq button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        /* FAQ Categories */
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .category-btn {
+            padding: 12px 25px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* FAQ Accordion */
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto 60px;
+        }
+        
+        .faq-section-title {
+            font-size: 28px;
+            color: var(--secondary);
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            display: block; /* Ensure it can be hidden/shown */
+        }
+        
+        .faq-item.hidden {
+            display: none;
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: #f8f9ff;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+            background: #f8f9ff;
+        }
+        
+        .faq-answer-content {
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px; /* Adjust as needed for content */
+            padding-bottom: 20px; /* Add padding when open */
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            background: linear-gradient(to right, var(--primary), #4a7bff);
+            border-radius: 15px;
+            padding: 50px;
+            text-align: center;
+            color: white;
+            margin: 60px auto;
+            max-width: 900px;
+        }
+        
+        .contact-cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+        }
+        
+        .btn-contact {
+            background: white;
+            color: var(--primary);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .btn-contact:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #a0aec0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .faq-hero h1 {
+                font-size: 36px;
+            }
+            
+            .faq-hero p {
+                font-size: 18px;
+            }
+            
+            .search-faq {
+                flex-direction: column;
+                padding: 15px;
+                border-radius: 10px;
+            }
+
+            .search-faq input {
+                margin-bottom: 10px;
+            }
+
+            .search-faq button {
+                width: 100%;
+                padding: 12px;
+                border-radius: 8px;
+            }
+
+            .faq-question {
+                padding: 15px 20px;
+                font-size: 16px;
+            }
+            
+            .contact-cta {
+                padding: 30px 20px;
+            }
+            
+            .contact-cta h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container top-bar-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 1234567890</span>
+                    <span><i class="fas fa-envelope"></i> support@zoomcar.com</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <h1><a href="index.html">ZOOMCAR</a></h1>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="howitworks.html">How it Works</a></li>
+                    <li><a href="fleet.html">Fleet</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="FAQ's.html" class="active">FAQ</a></li>
+                    <li><a href="starrewards.html">Loyalty</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-login"><a href="log-in.html">Login</a></button>
+                    <button class="btn btn-signup"><a href="signup.html">Sign Up</a></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="faq-hero">
+        <div class="container faq-hero-content">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find quick answers to common questions about our self-drive car rental service</p>
+            
+            <div class="search-faq">
+                <input type="text" id="searchInput" placeholder="Search for questions...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Categories -->
+    <div class="container">
+        <div class="faq-categories" id="faqCategories">
+            <button class="category-btn active" data-category="All Questions">All Questions</button>
+            <button class="category-btn" data-category="Booking">Booking</button>
+            <button class="category-btn" data-category="Payments">Payments</button>
+            <button class="category-btn" data-category="Requirements">Requirements</button>
+            <button class="category-btn" data-category="Cancellation">Cancellation</button>
+            <button class="category-btn" data-category="Safety">Safety</button>
+            <button class="category-btn" data-category="General">General</button>
+        </div>
+        
+        <!-- FAQ Container -->
+        <div class="faq-container" id="faqContainer">
+            <!-- FAQ sections and items will be dynamically loaded here by JavaScript -->
+        </div>
+        
+        <!-- Contact CTA -->
+        <div class="contact-cta">
+            <h2>Still have questions?</h2>
+            <p>Our customer support team is available 24/7 to assist you with any queries or concerns.</p>
+            <a href="contactus.html" class="btn-contact">Contact Support</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Zoomcar</h3>
+                    <p>India's first self-drive car rental company providing affordable and convenient mobility solutions.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Top Cities</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Bangalore</a></li>
+                        <li><a href="#">Delhi NCR</a></li>
+                        <li><a href="#">Mumbai</a></li>
+                        <li><a href="#">Hyderabad</a></li>
+                        <li><a href="#">Chennai</a></li>
+                        <li><a href="#">Pune</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="howitworks.html">How it Works</a></li>
+                        <li><a href="FAQ's.html">FAQs</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3><a href="contactus.html">Contact Us</a></h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Zoomcar India Pvt. Ltd.<br>Bangalore, Karnataka</li>
+                        <li><i class="fas fa-phone"></i> +91 1234567890</li>
+                        <li><i class="fas fa-envelope"></i> support@zoomcar.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Zoomcar India Pvt. Ltd. All rights reserved. | Privacy Policy | Terms & Conditions</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Global Elements ---
+            const faqContainer = document.getElementById('faqContainer');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const categoryBtns = document.querySelectorAll('.category-btn');
+
+            // --- FAQ Data (Expanded with more FAQs and categories) ---
+            const allFaqsData = [
+                // Booking Questions
+                {
+                    id: 'booking1',
+                    category: 'Booking',
+                    question: 'How do I book a car on Zoomcar?',
+                    answer: '<p>Booking a car on Zoomcar is simple and can be done in 4 easy steps:</p><ol><li>Visit our website or download the Zoomcar app</li><li>Select your city, pickup location, date and time</li><li>Choose from our wide range of available vehicles</li><li>Complete the booking process with your payment details</li></ol><p>Once booked, you\'ll receive a confirmation with all the details.</p>'
+                },
+                {
+                    id: 'booking2',
+                    category: 'Booking',
+                    question: 'What is the minimum rental duration?',
+                    answer: '<p>The minimum rental duration is 4 hours for most locations. However, some premium locations may have a minimum booking period of 8 hours. You can check the specific requirements during the booking process.</p><p>For monthly subscriptions, the minimum rental period is 30 days.</p>'
+                },
+                {
+                    id: 'booking3',
+                    category: 'Booking',
+                    question: 'Can I extend my booking during the trip?',
+                    answer: '<p>Yes, you can extend your booking during the trip through the Zoomcar app or by calling our customer support. Extensions are subject to vehicle availability and additional charges will apply.</p><p>To extend your booking:</p><ol><li>Open the Zoomcar app and go to \'My Trips\'</li><li>Select the ongoing trip</li><li>Choose \'Extend Booking\' and select your new end time</li><li>Confirm the extension with payment</li></ol>'
+                },
+                {
+                    id: 'booking4',
+                    category: 'Booking',
+                    question: 'How do I modify or cancel my booking?',
+                    answer: '<p>You can modify or cancel your booking directly from the "My Trips" section in the Zoomcar app. Modifications are subject to availability and may incur charges. Please refer to our detailed cancellation policy for more information on refunds.</p>'
+                },
+                {
+                    id: 'booking5',
+                    category: 'Booking',
+                    question: 'Can I book a car for someone else?',
+                    answer: '<p>No, the person who made the booking must be the primary driver and must be present at the time of pickup with their original documents. Bookings are non-transferable to ensure compliance with our insurance policies.</p>'
+                },
+
+                // Payment Questions
+                {
+                    id: 'payments1',
+                    category: 'Payments',
+                    question: 'What payment methods do you accept?',
+                    answer: '<p>We accept various payment methods for your convenience:</p><ul><li>Credit Cards (Visa, MasterCard, American Express)</li><li>Debit Cards</li><li>Net Banking</li><li>UPI (PhonePe, Google Pay, Paytm, etc.)</li><li>Wallet Payments (Paytm, Mobikwik, etc.)</li></ul><p>All payments are securely processed through our payment gateway partners.</p>'
+                },
+                {
+                    id: 'payments2',
+                    category: 'Payments',
+                    question: 'Are there any hidden charges?',
+                    answer: '<p>No, we believe in transparent pricing. The price you see during booking includes:</p><ul><li>Rental charges for the selected duration</li><li>Insurance coverage</li><li>Taxes as applicable</li></ul><p>Additional charges may apply in certain situations:</p><ul><li>Late return fees (if you return the car later than booked)</li><li>Toll charges (if any during your trip)</li><li>Parking fees (if applicable)</li><li>Traffic violation fines (if incurred during your trip)</li></ul>'
+                },
+                {
+                    id: 'payments3',
+                    category: 'Payments',
+                    question: 'Is there a security deposit?',
+                    answer: '<p>Yes, a refundable security deposit is required for each booking. The amount varies based on the vehicle category:</p><ul><li>Hatchbacks: ₹3,000</li><li>Sedans: ₹5,000</li><li>SUVs: ₹7,500</li><li>Luxury Cars: ₹15,000</li></ul><p>The deposit is fully refundable within 3-5 business days after the trip completion, provided there are no additional charges or damages.</p>'
+                },
+                {
+                    id: 'payments4',
+                    category: 'Payments',
+                    question: 'How does the fuel policy work?',
+                    answer: '<p>Zoomcar operates on a "Return with same fuel level" policy. The car will be provided with a certain fuel level, and you are expected to return it with the same. If the fuel level is lower, charges will apply. If it\'s higher, no refund will be issued.</p>'
+                },
+
+                // Requirements Questions
+                {
+                    id: 'requirements1',
+                    category: 'Requirements',
+                    question: 'What documents do I need to book a car?',
+                    answer: '<p>To book a car with Zoomcar, you need to provide:</p><ul><li>A valid Indian Driving License (both original and digital copy are accepted)</li><li>Proof of identity (Aadhaar Card, PAN Card, or Passport)</li><li>Proof of address (if different from the ID provided)</li></ul><p>For international travelers:</p><ul><li>Valid International Driving Permit (IDP)</li><li>Original passport with valid visa</li><li>Proof of Indian address during stay</li></ul>'
+                },
+                {
+                    id: 'requirements2',
+                    category: 'Requirements',
+                    question: 'What are the driving license requirements?',
+                    answer: '<p>To drive a Zoomcar vehicle, you must:</p><ul><li>Hold a valid Indian Driving License for at least 1 year</li><li>Be between 21 and 65 years of age</li><li>Have no major traffic violations in the past year</li></ul><p>For certain premium and luxury vehicles, the minimum age requirement is 25 years with at least 3 years of driving experience.</p><p>International travelers must have a valid International Driving Permit along with their home country license.</p>'
+                },
+                {
+                    id: 'requirements3',
+                    category: 'Requirements',
+                    question: 'Can a new driver rent a car?',
+                    answer: '<p>No, a minimum of 1 year of driving experience (post-license issuance) is required to rent a car from Zoomcar. This ensures the safety of our customers and vehicles.</p>'
+                },
+
+                // Cancellation Questions
+                {
+                    id: 'cancellation1',
+                    category: 'Cancellation',
+                    question: 'What is your cancellation policy?',
+                    answer: '<p>Our cancellation policy is designed to be fair and transparent:</p><ul><li><strong>More than 24 hours before pickup:</strong> Full refund (minus payment gateway charges)</li><li><strong>6-24 hours before pickup:</strong> 50% of the booking amount will be charged</li><li><strong>Less than 6 hours before pickup:</strong> 100% of the booking amount will be charged</li><li><strong>No-show at pickup:</strong> 100% of the booking amount will be charged</li></ul><p>Refunds are processed within 5-7 business days to the original payment method.</p>'
+                },
+                {
+                    id: 'cancellation2',
+                    category: 'Cancellation',
+                    question: 'How long does it take to get a refund?',
+                    answer: '<p>Refunds are typically processed within 5-7 business days from the cancellation date. The exact time may vary depending on your bank or payment method:</p><ul><li>Credit/Debit Cards: 5-7 business days</li><li>Net Banking: 3-5 business days</li><li>UPI: 24-48 hours</li><li>Wallets: Instant to 24 hours</li></ul><p>If you don\'t see the refund after 7 business days, please contact our customer support with your booking reference number.</p>'
+                },
+
+                // Safety Questions
+                {
+                    id: 'safety1',
+                    category: 'Safety',
+                    question: 'What safety measures are you taking during COVID-19?',
+                    answer: '<p>Your safety is our priority. We\'ve implemented enhanced cleaning protocols:</p><ul><li>All cars are thoroughly sanitized before every booking</li><li>High-touch surfaces are disinfected with hospital-grade solutions</li><li>Key exchange happens through contactless procedures</li><li>Masks are mandatory for all our delivery executives</li><li>Sanitizers are provided in every vehicle</li></ul><p>We recommend that customers also wear masks and use hand sanitizer before and after their trip.</p>'
+                },
+                {
+                    id: 'safety2',
+                    category: 'Safety',
+                    question: 'What if I face issues during my trip?',
+                    answer: '<p>We provide 24/7 roadside assistance for all our customers. If you face any issues during your trip:</p><ol><li>Call our emergency support number: +91 9876543210</li><li>Use the \'Help\' section in the Zoomcar app</li><li>Contact us through the in-car SOS button (available in select vehicles)</li></ol><p>Our team will assist you with:</p><ul><li>Mechanical breakdowns</li><li>Flat tires</li><li>Accident support</li><li>Fuel delivery</li><li>Lockout assistance</li></ul>'
+                },
+                {
+                    id: 'safety3',
+                    category: 'Safety',
+                    question: 'Are Zoomcar vehicles insured?',
+                    answer: '<p>Yes, all Zoomcar vehicles come with comprehensive insurance coverage. In case of an accident, a deductible amount will apply, as specified in our terms and conditions. Please report any incidents immediately to our support team.</p>'
+                },
+
+                // General Questions
+                {
+                    id: 'general1',
+                    category: 'General',
+                    question: 'What is Zoomcar?',
+                    answer: '<p>Zoomcar is India\'s leading self-drive car rental company, offering a wide range of cars on hourly, daily, weekly, or monthly rentals. We provide convenient, affordable, and flexible mobility solutions across major cities in India.</p>'
+                },
+                {
+                    id: 'general2',
+                    category: 'General',
+                    question: 'How does self-drive work?',
+                    answer: '<p>Self-drive means you rent the car and drive it yourself, without a driver. You get the keys, pick up the car from a designated location (or have it delivered), drive it for your booking period, and return it. It offers complete freedom and privacy.</p>'
+                },
+                {
+                    id: 'general3',
+                    category: 'General',
+                    question: 'Can I pick up or drop off the car at a different location?',
+                    answer: '<p>Yes, we offer flexible pickup and drop-off options, including one-way trips between cities. Additional charges may apply for different drop-off locations. You can select these options during your booking process on the app or website.</p>'
+                }
+            ];
+
+            let activeCategory = 'All Questions'; // Default active category
+            let currentSearchTerm = ''; // Default empty search term
+
+            // --- Dynamic FAQ Rendering and Accordion Setup ---
+            /**
+             * Renders FAQ items into the container based on filtered data.
+             * Organizes FAQs by category and applies accordion functionality.
+             * @param {Array<Object>} faqsToRender - The array of FAQ objects to display.
+             */
+            function renderFaqs(faqsToRender) {
+                faqContainer.innerHTML = ''; // Clear existing FAQs
+
+                if (faqsToRender.length === 0) {
+                    faqContainer.innerHTML = '<p class="text-center text-gray-600">No FAQs found matching your criteria.</p>';
+                    return;
+                }
+
+                // Group FAQs by category
+                const groupedFaqs = faqsToRender.reduce((acc, faq) => {
+                    (acc[faq.category] = acc[faq.category] || []).push(faq);
+                    return acc;
+                }, {});
+
+                for (const category in groupedFaqs) {
+                    // Create category title
+                    const sectionTitle = document.createElement('h2');
+                    sectionTitle.classList.add('faq-section-title');
+                    sectionTitle.textContent = `${category} Questions`;
+                    faqContainer.appendChild(sectionTitle);
+
+                    // Append FAQ items for this category
+                    groupedFaqs[category].forEach(faq => {
+                        const faqItem = document.createElement('div');
+                        faqItem.classList.add('faq-item');
+                        faqItem.dataset.category = faq.category; // Add data attribute for filtering
+
+                        faqItem.innerHTML = `
+                            <div class="faq-question">
+                                ${faq.question}
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    ${faq.answer}
+                                </div>
+                            </div>
+                        `;
+                        faqContainer.appendChild(faqItem);
+                    });
+                }
+
+                // Re-apply accordion event listeners to newly rendered items
+                applyAccordionLogic();
+            }
+
+            /**
+             * Applies the accordion toggle logic to all .faq-item elements.
+             */
+            function applyAccordionLogic() {
+                const currentFaqItems = faqContainer.querySelectorAll('.faq-item');
+                currentFaqItems.forEach(item => {
+                    const question = item.querySelector('.faq-question');
+                    // Remove existing listener to prevent duplicates if re-rendering
+                    question.removeEventListener('click', toggleAccordion);
+                    question.addEventListener('click', toggleAccordion);
+                });
+            }
+
+            /**
+             * Event handler for toggling accordion items.
+             * @param {Event} event - The click event.
+             */
+            function toggleAccordion(event) {
+                const clickedItem = event.currentTarget.closest('.faq-item');
+                const allItems = faqContainer.querySelectorAll('.faq-item');
+
+                allItems.forEach(otherItem => {
+                    if (otherItem !== clickedItem && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                clickedItem.classList.toggle('active');
+            }
+
+            // --- Filtering Logic ---
+            /**
+             * Filters FAQs based on the current active category and search term.
+             * Then renders the filtered FAQs.
+             */
+            function filterFaqs() {
+                let filtered = allFaqsData;
+
+                // Filter by category first
+                if (activeCategory !== 'All Questions') {
+                    filtered = filtered.filter(faq => faq.category === activeCategory);
+                }
+
+                // Then apply search term
+                if (currentSearchTerm) {
+                    const lowerCaseSearchTerm = currentSearchTerm.toLowerCase();
+                    filtered = filtered.filter(faq =>
+                        faq.question.toLowerCase().includes(lowerCaseSearchTerm) ||
+                        faq.answer.toLowerCase().includes(lowerCaseSearchTerm)
+                    );
+                }
+                renderFaqs(filtered);
+            }
+
+            // --- Event Listeners ---
+
+            // Search functionality
+            searchBtn.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent default button behavior
+                currentSearchTerm = searchInput.value.trim();
+                filterFaqs();
+            });
+
+            searchInput.addEventListener('keyup', function(e) {
+                // Trigger search on Enter key or continuous typing
+                if (e.key === 'Enter') {
+                    currentSearchTerm = searchInput.value.trim();
+                    filterFaqs();
+                } else if (searchInput.value.trim() === '' && currentSearchTerm !== '') {
+                    // If search box is cleared, reset search term and re-filter
+                    currentSearchTerm = '';
+                    filterFaqs();
+                }
+            });
+
+
+            // Category filtering
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all category buttons
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to the clicked button
+                    this.classList.add('active');
+
+                    activeCategory = this.dataset.category; // Get category from data-attribute
+                    currentSearchTerm = ''; // Clear search when category filter is applied
+                    searchInput.value = ''; // Clear search input visually
+
+                    filterFaqs(); // Apply filters
+                });
+            });
+
+            // Initial load: Render all FAQs
+            filterFaqs();
+
+            // Add active class to current page in nav menu (existing functionality)
+            const currentPageNav = window.location.pathname.split('/').pop();
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                if(link.getAttribute('href') === currentPageNav) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

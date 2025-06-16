@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoomcar - Self-Drive Car Rental in India</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        :root {
+            --primary: #3563e9;
+            --secondary: #1a202c;
+            --accent: #ff7e5f;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --dark: #212529;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Added for responsiveness */
+        }
+
+        .contact-info span {
+            margin-right: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Added for responsiveness */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap; /* Added for responsiveness */
+            justify-content: center; /* Center items on smaller screens */
+            margin-top: 10px; /* Space from logo on smaller screens */
+        }
+
+        .nav-menu li {
+            margin: 0 15px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px; /* Space from nav on smaller screens */
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(53, 99, 233, 0.8), rgba(53, 99, 233, 0.8)), url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn-hero {
+            background-color: var(--accent);
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none; /* Ensure button has no default border */
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-title {
+            color: var(--secondary);
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn-search {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-search:hover {
+            background-color: #2a52c7;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: #f0f4f8;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            width: calc(100% + 40px);
+            height: 2px;
+            background: var(--primary);
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .step h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* Cars Section */
+        .cars {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            cursor: pointer; /* Added cursor pointer */
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .car-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .car-details {
+            padding: 20px;
+        }
+
+        .car-details h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .car-specs {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .car-specs span {
+            display: flex;
+            align-items: center;
+        }
+
+        .car-specs i {
+            margin-right: 5px;
+        }
+
+        .car-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price span {
+            font-size: 14px;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .btn-book {
+            background-color: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            border: none; /* Ensure button has no default border */
+        }
+
+        /* Why Choose Us */
+        .why-us {
+            padding: 80px 0;
+            background: linear-gradient(to right, var(--primary), #4a7bff);
+            color: white;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .benefit-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .benefit-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        /* App Section */
+        .app-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .app-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+
+        .app-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .app-image img {
+            max-width: 100%;
+            max-height: 500px;
+        }
+
+        .app-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .app-info h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .app-info p {
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .app-badges {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .app-badge {
+            height: 50px;
+            cursor: pointer;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: #f0f4f8;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-size: cover;
+            margin-right: 15px;
+        }
+
+        .testimonial-info h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-size: 14px;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            position: relative;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 40px;
+            color: rgba(53, 99, 233, 0.1);
+            position: absolute;
+        }
+
+        .testimonial-text::before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .testimonial-text::after {
+            content: '"';
+            bottom: -40px;
+            right: -10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #a0aec0;
+        }
+
+        /* Car Booking Page Styles */
+        .car-booking-page {
+            display: none; /* Hidden by default */
+            padding: 80px 0;
+            background-color: #f5f7fa;
+        }
+
+        .booking-form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .booking-form-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary);
+            font-size: 28px;
+        }
+
+        .booking-form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .booking-form-grid .form-group {
+            margin-bottom: 0; /* Override default form-group margin */
+        }
+
+        .booking-form-grid .form-control {
+            padding: 12px 15px; /* Adjust padding for booking form */
+            padding-left: 45px; /* Space for icon */
+        }
+
+        .booking-form-grid .form-group i {
+            left: 15px;
+        }
+
+        .btn-submit-booking {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-submit-booking:hover {
+            background-color: #2a52c7;
+        }
+
+        .booking-status {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #e6ffe6;
+            color: #28a745;
+            text-align: center;
+            font-weight: 600;
+            display: none; /* Hidden by default */
+        }
+
+        .booking-status.error {
+            background-color: #ffe6e6;
+            color: #dc3545;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 2000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            text-align: center;
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-bar-content, .header-content, .nav-menu, .auth-buttons, .app-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .nav-menu li {
+                margin-bottom: 10px;
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .step:not(:last-child)::after {
+                display: none;
+            }
+            
+            .app-content {
+                flex-direction: column;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <div class="container top-bar-content">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> +91 1234567890</span>
+                    <span><i class="fas fa-envelope"></i> support@zoomcar.com</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <h1><a href="index.html">ZOOMCAR</a></h1>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="howitworks.html">How it Works</a></li>
+                    <li><a href="fleet.html">Fleet</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="cars.html">Cars</a></li>
+                    <li><a href="locations.html">Locations</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="starrewards.html">Loyalty</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <button class="btn btn-login"><a href="log-in.html">Login</a></button>
+                    <button class="btn btn-signup"><a href="signup.html">Sign Up</a></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home-section">
+        <div class="container hero-content">
+            <h2>Self-Drive Cars on Rent</h2>
+            <p>Experience the freedom of self-drive with India's leading car rental service</p>
+            <button class="btn btn-hero" id="heroBookNowBtn"><a href="cars.html">Book Now</a></button>
+            
+            <div class="search-box">
+                <h3 class="search-title">Find your perfect car</h3>
+                <form class="search-form" id="mainSearchForm">
+                    <div class="form-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" class="form-control" placeholder="Pickup Location" id="searchPickupLocation">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-calendar"></i>
+                        <input type="date" class="form-control" placeholder="Pickup Date" id="searchPickupDate">
+                    </div>
+                    <div class="form-group">
+                        <i class="fas fa-clock"></i>
+                        <input type="time" class="form-control" placeholder="Pickup Time" id="searchPickupTime">
+                    </div>
+                    <button type="submit" class="btn-search">Search Cars</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Zoomcar</h2>
+                <p>Enjoy a seamless car rental experience with our premium services</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Self Drive</h3>
+                    <p>Drive the car yourself without any chauffeur. Freedom to travel at your own pace.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <h3>Affordable Pricing</h3>
+                    <p>Competitive pricing with no hidden costs. Pay only for the time you use.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safe & Secure</h3>
+                    <p>All cars undergo rigorous checks and sanitization before every booking.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Multiple Locations</h3>
+                    <p>Pick up and drop at any of our convenient locations across the city.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>
+                    <a href="hotitwork.html">
+                    How Zoomcar Works
+                    </a>
+                </h2>
+                <p>Rent a car in just 4 simple steps</p>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Book</h3>
+                    <p>Select your preferred car and time slot through our website or mobile app.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Upload License</h3>
+                    <p>Upload your driving license for verification. Get approved instantly.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Unlock</h3>
+                    <p>Unlock the car with our app at the scheduled time and location.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Zoom</h3>
+                    <p>Start your journey and enjoy the freedom of self-drive.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cars Section -->
+    <section class="cars" id="cars-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Popular Car Options</h2>
+                <p>Choose from our wide range of well-maintained cars</p>
+            </div>
+            
+            <div class="cars-grid">
+                <div class="car-card" data-car-type="Hyundai i20">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="car-details">
+                        <h3>Hyundai i20</h3>
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Hatchback</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹149/hr <span>+ taxes</span></div>
+                            <button class="btn-book"><a href="cars.html">Book Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="car-card" data-car-type="Maruti Suzuki Swift">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1550355291-bbee04a92027?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80');"></div>
+                    <div class="car-details">
+                        <h3>Maruti Suzuki Swift</h3>
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Hatchback</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹139/hr <span>+ taxes</span></div>
+                            <button class="btn-book"><a href="cars.html">Book Now</a></button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="car-card" data-car-type="Honda City">
+                    <div class="car-image" style="background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');"></div>
+                    <div class="car-details">
+                        <h3>Honda City</h3>
+                        <div class="car-specs">
+                            <span><i class="fas fa-car"></i> Sedan</span>
+                            <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                            <span><i class="fas fa-user-friends"></i> 5 Seater</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">₹199/hr <span>+ taxes</span></div>
+                            <button class="btn-book"><a href="cars.html">Book Now</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Zoomcar</h2>
+                <p>We offer the best car rental experience in India</p>
+            </div>
+            
+            <div class="benefits">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Wide Selection</h3>
+                    <p>Choose from hatchbacks, sedans, SUVs, and luxury cars</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Best Prices</h3>
+                    <p>Competitive pricing with no hidden costs</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Fully Insured</h3>
+                    <p>All bookings include comprehensive insurance</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our support team is always ready to help you</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Section -->
+    <section class="app-section">
+        <div class="container app-content">
+            <div class="app-image">
+                <img src="https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Zoomcar App">
+            </div>
+            <div class="app-info">
+                <h2>Download the Zoomcar App</h2>
+                <p>Book, unlock, and manage your car rental all from our mobile application. Available for both iOS and Android devices.</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Easy booking in 30 seconds</li>
+                    <li><i class="fas fa-check-circle"></i> Digital key to unlock your car</li>
+                    <li><i class="fas fa-check-circle"></i> Real-time trip tracking</li>
+                    <li><i class="fas fa-check-circle"></i> Secure payment options</li>
+                    <li><i class="fas fa-check-circle"></i> 24/7 roadside assistance</li>
+                </ul>
+                
+                <div class="app-badges">
+                    <img class="app-badge" src="https://www.pngmart.com/files/22/App-Store-Logo-PNG-Isolated-Picture.png" alt="App Store">
+                    <img class="app-badge" src="https://www.pngmart.com/files/22/Download-on-the-Google-Play-Store-PNG.png" alt="Google Play">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Customers Say</h2>
+                <p>Read experiences from our happy customers</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg');"></div>
+                        <div class="testimonial-info">
+                            <h4>Rajesh Kumar</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">The booking process was smooth and the car was in excellent condition. I'll definitely use Zoomcar again for my next trip.</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar" style="background-image: url('https://randomuser.me/api/portraits/women/44.jpg');"></div>
+                        <div class="testimonial-info">
+                            <h4>Priya Sharma</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">Great experience! The app made everything so easy - from booking to unlocking the car. Customer support was very helpful too.</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar" style="background-image: url('https://randomuser.me/api/portraits/men/67.jpg');"></div>
+                        <div class="testimonial-info">
+                            <h4>Vikram Singh</h4>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">I rented a car for a weekend trip with friends. The pricing was transparent and the car was perfect for our journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Zoomcar</h3>
+                    <p>India's first self-drive car rental company providing affordable and convenient mobility solutions.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Top Cities</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Bangalore</a></li>
+                        <li><a href="#">Delhi NCR</a></li>
+                        <li><a href="#">Mumbai</a></li>
+                        <li><a href="#">Hyderabad</a></li>
+                        <li><a href="#">Chennai</a></li>
+                        <li><a href="#">Pune</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="howitworks.html">How it Works</a></li>
+                        <li><a href="FAQ's.html">FAQs</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="contactus.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3><a href="contactus.html">Contact Us</a></h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> Zoomcar India Pvt. Ltd.<br>Bangalore, Karnataka</li>
+                        <li><i class="fas fa-phone"></i> +91 1234567890</li>
+                        <li><i class="fas fa-envelope"></i> support@zoomcar.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Zoomcar India Pvt. Ltd. All rights reserved. | Privacy Policy | Terms & Conditions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Car Booking Page (initially hidden) -->
+    <section class="car-booking-page" id="carBookingPage">
+        <div class="container booking-form-container">
+            <h2>Book Your Car</h2>
+            <form class="booking-form-grid" id="bookingForm">
+                <div class="form-group">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" class="form-control" id="bookingPickupLocation" placeholder="Pickup Location" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control" id="bookingName" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-calendar-alt"></i>
+                    <input type="date" class="form-control" id="bookingPickupDate" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-clock"></i>
+                    <input type="time" class="form-control" id="bookingPickupTime" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-calendar-alt"></i>
+                    <input type="date" class="form-control" id="bookingReturnDate" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-clock"></i>
+                    <input type="time" class="form-control" id="bookingReturnTime" required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-car"></i>
+                    <select class="form-control" id="bookingCarType" required>
+                        <option value="">Select Car Type</option>
+                        <option value="Hyundai i20">Hyundai i20</option>
+                        <option value="Maruti Suzuki Swift">Maruti Suzuki Swift</option>
+                        <option value="Honda City">Honda City</option>
+                        <option value="Hatchback">Hatchback (General)</option>
+                        <option value="Sedan">Sedan (General)</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Luxury">Luxury</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit-booking">Confirm Booking</button>
+            </form>
+            <div class="booking-status" id="bookingStatus"></div>
+        </div>
+    </section>
+
+    <!-- Custom Alert/Modal for messages -->
+    <div id="customModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get elements
+            const homeSection = document.getElementById('home-section');
+            const carsSection = document.getElementById('cars-section');
+            const carBookingPage = document.getElementById('carBookingPage');
+            const heroBookNowBtn = document.getElementById('heroBookNowBtn');
+            const carCards = document.querySelectorAll('.car-card');
+            const bookingForm = document.getElementById('bookingForm');
+            const bookingStatus = document.getElementById('bookingStatus');
+            const searchForm = document.getElementById('mainSearchForm');
+
+            // Modal elements
+            const customModal = document.getElementById('customModal');
+            const modalMessage = document.getElementById('modalMessage');
+            const closeButton = document.querySelector('.close-button');
+
+            // Function to show custom modal
+            function showModal(message) {
+                modalMessage.textContent = message;
+                customModal.style.display = 'flex';
+            }
+
+            // Function to close custom modal
+            closeButton.onclick = function() {
+                customModal.style.display = 'none';
+            }
+
+            // Close modal if user clicks outside of it
+            window.onclick = function(event) {
+                if (event.target == customModal) {
+                    customModal.style.display = 'none';
+                }
+            }
+
+            // Hide all sections except the home section initially
+            function showHomeSection() {
+                homeSection.style.display = 'block';
+                carsSection.style.display = 'block'; // Ensure cars section is visible on home
+                carBookingPage.style.display = 'none';
+                // Reset form and status when returning to home
+                bookingForm.reset();
+                bookingStatus.style.display = 'none';
+                bookingStatus.classList.remove('error');
+                bookingStatus.textContent = '';
+            }
+
+            // Show the car booking page and hide other sections
+            function showCarBookingPage(prefilledCarType = '') {
+                homeSection.style.display = 'none';
+                carsSection.style.display = 'none';
+                carBookingPage.style.display = 'block';
+                // Pre-fill car type if provided
+                if (prefilledCarType) {
+                    document.getElementById('bookingCarType').value = prefilledCarType;
+                }
+                // Scroll to top of the booking form
+                carBookingPage.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Event listener for Hero "Book Now" button
+            heroBookNowBtn.addEventListener('click', function() {
+                showCarBookingPage(); // No pre-filled car type for general booking
+            });
+
+            // Event listeners for "Book Now" buttons on car cards
+            carCards.forEach(card => {
+                const bookBtn = card.querySelector('.btn-book');
+                const carType = card.getAttribute('data-car-type');
+                bookBtn.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Prevent card click from triggering as well
+                    showCarBookingPage(carType);
+                });
+                // Also make the whole card clickable to go to booking page
+                card.addEventListener('click', function() {
+                    showCarBookingPage(carType);
+                });
+            });
+
+            // Handle main search form submission
+            searchForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+                const pickupLocation = document.getElementById('searchPickupLocation').value;
+                const pickupDate = document.getElementById('searchPickupDate').value;
+                const pickupTime = document.getElementById('searchPickupTime').value;
+
+                if (pickupLocation && pickupDate && pickupTime) {
+                    // In a real application, you would send these details to a backend to search for cars.
+                    // For this example, we'll just navigate to the booking page.
+                    showCarBookingPage();
+                    showModal('Searching for cars based on your criteria. Please proceed with booking details.');
+                } else {
+                    showModal('Please fill in all search criteria (Location, Date, Time).');
+                }
+            });
+
+            // Handle booking form submission
+            bookingForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Collect form data
+                const pickupLocation = document.getElementById('bookingPickupLocation').value;
+                const name = document.getElementById('bookingName').value;
+                const pickupDate = document.getElementById('bookingPickupDate').value;
+                const pickupTime = document.getElementById('bookingPickupTime').value;
+                const returnDate = document.getElementById('bookingReturnDate').value;
+                const returnTime = document.getElementById('bookingReturnTime').value;
+                const carType = document.getElementById('bookingCarType').value;
+
+                // Basic validation
+                if (!pickupLocation || !name || !pickupDate || !pickupTime || !returnDate || !returnTime || !carType) {
+                    bookingStatus.textContent = 'Please fill in all required fields.';
+                    bookingStatus.classList.add('error');
+                    bookingStatus.style.display = 'block';
+                    return;
+                }
+
+                // Simulate booking process
+                setTimeout(() => {
+                    const bookingSuccessful = Math.random() > 0.2; // 80% success rate for demo
+
+                    if (bookingSuccessful) {
+                        bookingStatus.textContent = `Booking Confirmed! Car Type: ${carType}, Pick-up: ${pickupDate} ${pickupTime} at ${pickupLocation}. Return: ${returnDate} ${returnTime}.`;
+                        bookingStatus.classList.remove('error');
+                        bookingStatus.style.display = 'block';
+                        bookingForm.reset(); // Clear the form
+                        showModal('Your car has been successfully booked! Check booking status below.');
+                    } else {
+                        bookingStatus.textContent = 'Booking failed. Please try again or choose a different car/time.';
+                        bookingStatus.classList.add('error');
+                        bookingStatus.style.display = 'block';
+                        showModal('Booking failed. Please try again.');
+                    }
+                }, 1500); // Simulate network delay
+            });
+
+            // Initial setup: Ensure only home content is visible
+            showHomeSection();
+        });
+    </script>
+</body>
+</html>
